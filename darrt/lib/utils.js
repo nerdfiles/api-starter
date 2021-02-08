@@ -21,6 +21,8 @@ httpActions.partial = "PATCH";
 httpActions.read = "GET";
 httpActions.remove = "DELETE";
 httpActions.replace = "PUT";
+httpActions.options = "OPTIONS";
+httpActions.trace = "TRACE";
 
 // map WeSTL actions to HTTP
 exports.actionMethod = function(action, protocol) {

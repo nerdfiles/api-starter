@@ -22,20 +22,20 @@ exports.template =
               <%var w=0;%>
               <%for(var p in md){%>
                 <%if(w!==0){%>,<%}%>"<%=p%>" : <%if(Array.isArray(md[p])){%>
-            [
-            <%var a=0;%>
-     <%md[p].forEach(function(prop){%>
-              <%if(a!==0){%>,<%}%>
-		{
-		  <%var b=0;%>
-		  <%for(var pr in prop){%>
-		    <%if(b!==0){%>,<%}%>"<%=pr%>" : "<%=helpers.stateValue(prop[pr],{},prop[pr])%>"
-		    <%b=1;%>
-		  <%}%>
-		}
-	      <%});%>
-	      ]	      
-            <%}else{%>"<%=helpers.stateValue(md[p],{},request,md[p])%>"<%}%>
+                [
+                  <%var a=0;%>
+                  <%md[p].forEach(function(prop){%>
+                    <%if(a!==0){%>,<%}%>
+                    {
+                      <%var b=0;%>
+                      <%for(var pr in prop){%>
+                        <%if(b!==0){%>,<%}%>"<%=pr%>" : "<%=helpers.stateValue(prop[pr],{},prop[pr])%>"
+                        <%b=1;%>
+                      <%}%>
+                    }
+                  <%});%>
+                ]	      
+              <%}else{%>"<%=helpers.stateValue(md[p],{},request,md[p])%>"<%}%>
                   <%w=1;%>
                 <%}%>  
               }
@@ -51,21 +51,21 @@ exports.template =
                 <%var w=0;%>
                 <%for(var p in form){%>
                   <%if(w!==0){%>,<%}%>"<%=p%>" : <%if(Array.isArray(form[p])){%>
-              [
-              <%var a=0;%>
-	      <%form[p].forEach(function(prop){%>
-                <%if(a!==0){%>,<%}%>
-                <%a=1%>
-		{
-		  <%var b=0;%>
-		  <%for(var pr in prop){%>
-		    <%if(b!==0){%>,<%}%>"<%=pr%>" : "<%=helpers.stateValue(prop[pr],{},request,prop[pr])%>"
-		    <%b=1;%>
-		  <%}%>
-		}
-	      <%});%>
-	      ]	      
-            <%}else{%>"<%=helpers.stateValue(form[p],{},request,form[p])%>"<%}%>
+                  [
+                    <%var a=0;%>
+                    <%form[p].forEach(function(prop){%>
+                      <%if(a!==0){%>,<%}%>
+                      <%a=1%>
+                      {
+                        <%var b=0;%>
+                        <%for(var pr in prop){%>
+                          <%if(b!==0){%>,<%}%>"<%=pr%>" : "<%=helpers.stateValue(prop[pr],{},request,prop[pr])%>"
+                          <%b=1;%>
+                        <%}%>
+                      }
+                    <%});%>
+                  ]	      
+                  <%}else{%>"<%=helpers.stateValue(form[p],{},request,form[p])%>"<%}%>
                   <%w=1;%>
                 <%}%>  
               }
@@ -90,22 +90,21 @@ exports.template =
                       <%var r=0;%>
                       <%for(var p in form){%>
                         <%if(r!==0){%>,<%}%>"<%=p%>" : <%if(Array.isArray(form[p])){%>
-                    [
-                    <%var s=0;%>
-              <%form[p].forEach(function(prop){%>
-                      <%if(s!==0){%>,<%}%>
-                      <%s=1%>
-          {
-            <%var t=0;%>
-            <%for(var pr in prop){%>
-              <%if(t!==0){%>,<%}%>"<%=pr%>" : "<%=helpers.stateValue(prop[pr],item,request,prop[pr])%>"
-              <%t=1;%>
-            <%}%>
-          }
-              <%});%>
-              
-              ]	      
-                  <%}else{%>"<%=helpers.stateValue(form[p],item,request,form[p])%>"<%}%>
+                          [
+                          <%var s=0;%>
+                          <%form[p].forEach(function(prop){%>
+                            <%if(s!==0){%>,<%}%>
+                            <%s=1%>
+                            {
+                              <%var t=0;%>
+                              <%for(var pr in prop){%>
+                                <%if(t!==0){%>,<%}%>"<%=pr%>" : "<%=helpers.stateValue(prop[pr],item,request,prop[pr])%>"
+                                <%t=1;%>
+                              <%}%>
+                            }
+                            <%});%>
+                          ]	      
+                        <%}else{%>"<%=helpers.stateValue(form[p],item,request,form[p])%>"<%}%>
                         <%r=1;%>
                       <%}%>  
                     }

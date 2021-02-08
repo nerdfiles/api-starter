@@ -50,7 +50,11 @@ function main(args) {
       rtn = profile;
       break;
     case 'list':
-      rtn = utils.cleanList(storage({object:elm, action:'list', fields:fields}));
+      rtn = utils.cleanList(storage({
+        object:elm,
+        action:'list',
+        fields:fields
+      }));
       break;
     case 'read':
     case 'item':
