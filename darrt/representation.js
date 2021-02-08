@@ -1,3 +1,6 @@
+/**
+ * @namespace representation
+ */
 /*****************************************
 // bigco, inc
 // company response representations
@@ -14,8 +17,16 @@ var textCsv = require('./representors/text-csv');
 // support form encoding
 exports.urlencoded = true;
 
-// return supported response bodies
-exports.getTemplates = function() {
+exports.getTemplates = getTemplates;
+exports.getResponseTypes = getResponseTypes;
+
+/**
+ * @function getTemplates
+ * @memberof representation
+ * @description
+ * return supported response bodies
+ */
+function getTemplates () {
   var list = [];
   
   list.push(appJson.template);
@@ -27,12 +38,17 @@ exports.getTemplates = function() {
   return list;  
 }
 
-// return supported response identifiers
-exports.getResponseTypes = function() {
+/**
+ * @function getResponseTypes
+ * @memberof representation
+ * @description
+ * return supported response identifiers
+ */
+function getResponseTypes () {
   var rtn  = [];
   var viewList = this.getTemplates();
 
-  viewList.forEach(function(item) {
+  viewList.forEach(function (item) {
     rtn.push(item.format);
   });
   
@@ -40,6 +56,13 @@ exports.getResponseTypes = function() {
 }
 
 // init to hold forms/links
+/**
+ * @memberof representation
+ * @namespace
+ * @property {object} forms          - Forms.
+ * @property {array} forms.pageForms - Page forms.
+ * @property {array} forms.itemForms - Item forms.
+ */
 exports.forms = {
   pageForms: [],
   itemForms: []

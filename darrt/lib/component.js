@@ -1,3 +1,6 @@
+/**
+ * @module lib/component
+ */
 /*`******************************************************
  * component middleware module (DARRT)
  * Mike Amundsen (@mamund)
@@ -19,6 +22,12 @@ module.exports = main;
 // - DOES NOT support field type-checking (number, date, email, etc.)
 // - DOES NOT support min/max ranges for a field value
 // **********************************************************************
+
+/**
+ * @function main
+ * @static
+ * @param {object} args - Configuration object for component handler.
+ */
 function main(args) {
   var name, rtn, props, reqd, enums;
   var conn, action, id, filter, item;
@@ -89,6 +98,15 @@ function main(args) {
   });
 }
 
+/**
+ * @function addEntry
+ * @param {} elm
+ * @param {} entry
+ * @param {} props
+ * @param {} reqd
+ * @param {} enums
+ * @param {} defs
+ */
 function addEntry(elm, entry, props, reqd, enums, defs) {
   var rtn, item, error, id;
  
@@ -149,6 +167,15 @@ function addEntry(elm, entry, props, reqd, enums, defs) {
   return rtn;
 }
 
+/**
+ * @function updateEntry
+ * @param {} elm
+ * @param {} id
+ * @param {} entry
+ * @param {} props
+ * @param {} reqd
+ * @param {} enums
+ */
 function updateEntry(elm, id, entry, props, reqd, enums) {
   var rtn, check, item, error;
 
@@ -199,7 +226,12 @@ function updateEntry(elm, id, entry, props, reqd, enums) {
   return rtn;
 }
 
-function removeEntry(elm, id) {
+/**
+ * @function removeEntry
+ * @param {} elm
+ * @param {} id
+ */
+function removeEntry (elm, id) {
   var rtn, check;
   
   check = storage({object:elm, action:'item', id:id});

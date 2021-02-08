@@ -1,3 +1,6 @@
+/**
+ * @module lib/storage
+ */
 /*******************************************************
  * module: darrt simple storage (via files)
  * Mike Amundsen (@mamund)
@@ -21,6 +24,11 @@ module.exports = main;
 /*
  * args is a hash table of possible arguments
  * {object:"",action:"",filter:"",id:"",item:objItem}
+ */
+/**
+ * @function main
+ * @static
+ * @param {object} args - Configuration object for storage medium.
  */
 function main(args) {
   var rtn;
@@ -65,6 +73,12 @@ function main(args) {
 }
 
 // get a list of items (possibly via filter)
+/**
+ * @function getList
+ * @param {} object
+ * @param {} filter
+ * @param {} fields
+ */
 function getList(object, filter, fields) {
   var coll, item, list, i, x, t, name;
 
@@ -107,7 +121,14 @@ function getList(object, filter, fields) {
   return coll;
 }
 
-// retrieve and existing item
+/**
+ * @function getItem
+ * @param {} object
+ * @param {} id
+ * @param {} fields
+ * @description
+ * retrieve and existing item
+ */
 function getItem(object, id, fields) {
   var rtn,args;
 
@@ -127,28 +148,34 @@ function getItem(object, id, fields) {
   return rtn;
 }
 
-// apply field list
-// item = object to return
-// fields = a string of field names to return
-function applyFields(item,fields) {
+/**
+ * @function applyFields
+ * @param {object} item - object to return
+ * @param {string} fields - a string of field names to return
+ * @description
+ * apply field list
+ */
+function applyFields (item, fields) {
   var rtn = {};
   
-  if(fields && fields.length!==0) {
-    for(var i in item) {
-      if(fields.indexOf(i)!==-1) {
+  if (fields && fields.length !== 0) {
+    for (var i in item) {
+      if (fields.indexOf(i) !== -1) {
         rtn[i] = item[i];
       }
     }
-  }
-  else {
+  } else {
     rtn = item;
   }
   
   return rtn;
-  
 }
 
-// create a storage object (folder)
+/**
+ * @function createObject
+ * @param {object} object - Object.
+ * create a storage object (folder)
+ */
 function createObject(object) {
   var args = {};
   try {
@@ -176,7 +203,14 @@ function createObject(object) {
   }
 }
 
-// add a new item
+/**
+ * @function addItem
+ * @param {} object
+ * @param {} item
+ * @param {} id
+ * @description
+ * add a new item
+ */
 function addItem(object, item, id) {
   var rtn, args;
 
@@ -209,7 +243,14 @@ function addItem(object, item, id) {
   return rtn;
 }
 
-// modify an existing item
+/**
+ * @function updateItem
+ * @param {} object
+ * @param {} item
+ * @param {} id
+ * @description
+ * modify an existing item
+ */
 function updateItem(object, item, id) {
   var current, rtn, args;
 
@@ -241,9 +282,15 @@ function updateItem(object, item, id) {
   return rtn;
 }
 
-// remove the item
-function removeItem(object, id) {
-  var rtn, args;
+/**
+ * @function removeItem
+ * @param {object} object - Item to be removed.
+ * @param {string} id - Id of item.
+ * @description
+ * remove the item
+ */
+function removeItem (object, id) {
+  var rtn;
 
   try {
     fs.unlinkSync(folder + object + '/' + id);
@@ -254,8 +301,12 @@ function removeItem(object, id) {
   return rtn;
 }
 
-// generate a unique id 
-function makeId() {
+/**
+ * @function makeId
+ * @description
+ * generate a unique id 
+ */
+function makeId () {
   var rtn;
 
   rtn = String(Math.random());
@@ -265,16 +316,21 @@ function makeId() {
   return rtn;
 }
 
-// craft an exception msg
-function exception(args) {
+/**
+ * @function exception
+ * @param {} args
+ * @description
+ * craft an exception msg
+ */
+function exception (args) {
   var rtn = {};
 
   rtn.type = (args.type||"error");
   rtn.title = (args.title||"Error");
   rtn.detail = (args.detail||args.title);
   rtn.status = (args.code||"400");
-  if(args.url) {rtn.instance = args.url};
-  if(args.debug) {rtn.debug = args.debug};
+  if(args.url) {rtn.instance = args.url}
+  if(args.debug) {rtn.debug = args.debug}
 
   return rtn;
 }

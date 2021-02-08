@@ -1,3 +1,6 @@
+/**
+ * @namespace resources
+ */
 /*****************************************
 // bigco, inc
 // darrt resources 
@@ -21,18 +24,43 @@ metadata = [
   {name: "url", value: "{fullhost}"}
 ];
 
-// optional tracking middleware
-router.use(function timeLog (req, res, next) {
+router.use(timeLog);
+
+/**
+ * @memberof resources
+ * @function timeLog
+ * @desc
+ * optional tracking middleware
+ * @param {} req
+ * @param {} res
+ * @param {} next
+ */
+function timeLog (req, res, next) {
   console.log('Time: ', Date.now() + " : " + req.headers.host + req.url + " : " + req.method + " : " + JSON.stringify(req.body))
   next()
-});
+}
 
 /************************************************************************/
 
 // ***********************************************************
 // public resources for the api service
 // ***********************************************************
-router.get('/',function(req,res){
+router.get('/', getHome);
+router.post('/', postResource);
+router.get('/list/', listResources);
+router.get('/filter/', filterResource);
+router.get('/:id', getResource);
+router.put('/:id', putResource);
+router.delete('/:id', deleteResource);
+router.patch('/status/:id', patchResourceStatus);
+
+/**
+ * @memberof resources
+ * @function getHome
+ * @param {} req
+ * @param {} res
+ */
+function getHome (req,res) {
   var args = {};
   args.request = req;
   args.response = res;
@@ -45,9 +73,15 @@ router.get('/',function(req,res){
     filter:"home"
   };
   respond(args);
-});
+}
 
-router.post('/', function(req,res){
+/**
+ * @memberof resources
+ * @function postResource
+ * @param {} req
+ * @param {} res
+ */
+function postResource (req,res) {
   var args = {};
   args.request = req;
   args.response = res;
@@ -60,9 +94,15 @@ router.post('/', function(req,res){
     filter:"list"
   };
   respond(args);
-});
+}
 
-router.get('/list/',function(req,res){
+/**
+ * @function listResources
+ * @memberof resources
+ * @param {} req
+ * @param {} res
+ */
+function listResources (req,res) {
   var args = {};
   args.request = req;
   args.response = res;
@@ -75,9 +115,15 @@ router.get('/list/',function(req,res){
     filter:"list"
   };
   respond(args);
-});
+}
 
-router.get('/filter/', function(req,res){
+/**
+ * @function filterResource
+ * @memberof resources
+ * @param {} req
+ * @param {} res
+ */
+function filterResource (req,res){
   var args = {};
   args.request = req;
   args.response = res;
@@ -90,9 +136,15 @@ router.get('/filter/', function(req,res){
     filter:"list"
   };
   respond(args);
-});
+}
 
-router.get('/:id', function(req,res){
+/**
+ * @function getResource
+ * @memberof resources
+ * @param {} req
+ * @param {} res
+ */
+function getResource (req,res) {
   var args = {};
   args.request = req;
   args.response = res;
@@ -105,9 +157,15 @@ router.get('/:id', function(req,res){
     filter:"item"
   };
   respond(args);
-});
+}
 
-router.put('/:id', function(req,res){
+/**
+ * @function putResource
+ * @memberof resources
+ * @param {} req
+ * @param {} res
+ */
+function putResource (req,res) {
   var args = {};
   args.request = req;
   args.response = res;
@@ -120,9 +178,15 @@ router.put('/:id', function(req,res){
     filter:"item"
   };
   respond(args);
-});
+}
 
-router.delete('/:id', function(req,res){
+/**
+ * @function deleteResource
+ * @memberof resources
+ * @param {} req
+ * @param {} res
+ */
+function deleteResource (req,res) {
   var args = {};
   args.request = req;
   args.response = res;
@@ -135,9 +199,15 @@ router.delete('/:id', function(req,res){
     filter:"list"
   };
   respond(args);
-});
+}
 
-router.patch('/status/:id', function(req,res){
+/**
+ * @function patchResourceStatus
+ * @memberof resources
+ * @param {} req
+ * @param {} res
+ */
+function patchResourceStatus (req, res) {
   var args = {};
   args.request = req;
   args.response = res;
@@ -150,12 +220,17 @@ router.patch('/status/:id', function(req,res){
     filter:"item"
   };
   respond(args);
-});
+}
 
 /***********************************************************************/
 
-// initialize module
-function init() {
+/**
+ * @function init
+ * @memberof resources
+ * @desc
+ * initialize module
+ */
+function init () {
   express = require('express')
   router = express.Router()
   bodyParser = require('body-parser');
@@ -166,23 +241,29 @@ function init() {
   utils = require('./lib/utils');
 
   // set up request body parsing & response templates
-  router.use(bodyParser.json({type:representation.getResponseTypes()}));
-  router.use(bodyParser.urlencoded({extended:representation.urlencoded}));
+  router.use(bodyParser.json({ type:representation.getResponseTypes() }));
+  router.use(bodyParser.urlencoded({ extended:representation.urlencoded }));
 
   // load response templates and input forms
   templates = representation.getTemplates();
   forms = transitions.forms;
 }
 
-// local resour5ce handler function
-function respond(args) {
+/**
+ * @function respond
+ * @memberof resources
+ * @param {} args
+ * @desc
+ * local resour5ce handler function
+ */
+function respond (args) {
   var request = args.request||null;
   var response = args.response||null;
   var action = args.action||null;
   var object = args.type||"";
   var config = args.config||{};
 
-  return utils.handler(request,response,action,object,config);	
+  return utils.handler(request, response, action, object, config);	
 }
 
 // publish the capability routes
