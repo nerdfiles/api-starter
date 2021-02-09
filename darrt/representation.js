@@ -14,7 +14,12 @@ var linksJson = require('./representors/links-json');
 var pragJson = require('./representors/prag-json');
 var textCsv = require('./representors/text-csv');
 
-// support form encoding
+/**
+ * @memberof representation
+ * @property urlencoded {boolean} - URL encoding setting.
+ * @description
+ * support form encoding
+ */
 exports.urlencoded = true;
 
 exports.getTemplates = getTemplates;
@@ -25,6 +30,7 @@ exports.getResponseTypes = getResponseTypes;
  * @memberof representation
  * @description
  * return supported response bodies
+ * @return {array}
  */
 function getTemplates () {
   var list = [];
@@ -43,6 +49,7 @@ function getTemplates () {
  * @memberof representation
  * @description
  * return supported response identifiers
+ * @return {array}
  */
 function getResponseTypes () {
   var rtn  = [];
@@ -55,17 +62,4 @@ function getResponseTypes () {
   return rtn;
 }
 
-// init to hold forms/links
-/**
- * @memberof representation
- * @property {object} forms          - Forms.
- * @property {array} forms.pageForms - Page forms.
- * @property {array} forms.itemForms - Item forms.
- */
-exports.forms = {
-  pageForms: [],
-  itemForms: []
-}
-
-
-
+// EOF

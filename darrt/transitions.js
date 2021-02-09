@@ -1,18 +1,18 @@
 /**
  * @namespace transitions
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * DARRT Framework
+ * transitions
  */
-/*****************************************
-// DARRT Framework
-// transitions
-// 2020-02-01 : mamund
- *****************************************/
 
 /**
  * @memberof transitions
  * @property {object} forms          - All forms.
  * @property {array} forms.pageForms - Page forms.
  * @property {array} forms.itemForms - Item forms.
- * @desc
+ * @description
  * page- and item-level forms
  */
  exports.forms = {
