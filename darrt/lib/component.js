@@ -1,76 +1,76 @@
 /**
  * @module lib/component
- */
-/*`******************************************************
+ * @author Mike Amundsen (@mamund)
+ * @description
  * component middleware module (DARRT)
- * Mike Amundsen (@mamund)
- *******************************************************/
+ *
+ * DARRT component handler
+ * args: name, props, reqd, action, id, filter, item
+ * on writes, supports 
+ * - valid fields
+ * - required fields
+ * - enumerated values for a field
+ * - DOES NOT support field type-checking (number, date, email, etc.)
+ * - DOES NOT support min/max ranges for a field value
+ */
 
 var storage = require('./storage');
 var utils = require('./utils');
 
 module.exports = main;
 
-// **********************************************************************
-// DARRT component handler
-// args: name, props, reqd, action, id, filter, item
-//
-// on writes, supports 
-// - valid fields
-// - required fields
-// - enumerated values for a field
-// - DOES NOT support field type-checking (number, date, email, etc.)
-// - DOES NOT support min/max ranges for a field value
-// **********************************************************************
-
 /**
  * @function main
  * @static
  * @param {object} args - Configuration object for component handler.
  */
-function main(args) {
-  var name, rtn, props, reqd, enums;
-  var conn, action, id, filter, item;
+function main (args) {
+  var rtn, props, reqd, enums;
+  var action, id, filter, item, fields, defs, elm, profile;
 
-  elm = args.name||"";    
-  props = args.props||[]; 
-  reqd = args.reqd||[];
-  action = args.action||"list";
-  id = args.id||"";
-  filter = args.filter||"";
-  item = args.item||{};
-  reqd = args.reqd||[];
-  enums = args.enums||[];
-  defs = args.defs||[];
-  fields = args.fields||"";
+  elm = args.name || "";    
+  props = args.props || []; 
+  reqd = args.reqd || [];
+  action = args.action || "list";
+  id = args.id || "";
+  filter = args.filter || "";
+  item = args.item || {};
+  reqd = args.reqd || [];
+  enums = args.enums || [];
+  defs = args.defs || [];
+  fields = args.fields || "";
   
   // confirm existence of object storage
-  storage({action:'create',object:elm});
+  storage({ action: 'create', object: elm});
 
   // handle action request
   switch (action) {
     case 'exists':
-      rtn = (storage({object:elm, action:'item', id:id})===null?false:true);
+      rtn = (storage({
+				object: elm,
+				action: 'item',
+				id: id
+			}) === null ? false : true);
       break;
     case 'props' :
-      rtn = utils.setProps(item,props);
+      rtn = utils.setProps(item, props);
       break;  
     case 'profile':
       rtn = profile;
       break;
     case 'list':
       rtn = utils.cleanList(storage({
-        object:elm,
-        action:'list',
-        fields:fields
+        object: elm,
+        action: 'list',
+        fields: fields
       }));
       break;
     case 'read':
     case 'item':
-      rtn = utils.cleanList(storage({object:elm, action:'item', id:id, fields:fields}));
+      rtn = utils.cleanList(storage({object: elm, action: 'item', id: id, fields: fields}));
       break;
     case 'filter':
-      rtn = utils.cleanList(storage({object:elm, action:'filter', filter:filter, fields:fields}));
+      rtn = utils.cleanList(storage({ object: elm, action: 'filter', filter: filter, fields: fields}));
       break
     case 'add':
       rtn = addEntry(elm, item, props, reqd, enums, defs);
@@ -100,6 +100,7 @@ function main(args) {
 
 /**
  * @function addEntry
+ * @inner
  * @param {} elm
  * @param {} entry
  * @param {} props
@@ -107,7 +108,7 @@ function main(args) {
  * @param {} enums
  * @param {} defs
  */
-function addEntry(elm, entry, props, reqd, enums, defs) {
+function addEntry (elm, entry, props, reqd, enums, defs) {
   var rtn, item, error, id;
  
   item = {}
@@ -169,6 +170,7 @@ function addEntry(elm, entry, props, reqd, enums, defs) {
 
 /**
  * @function updateEntry
+ * @inner
  * @param {} elm
  * @param {} id
  * @param {} entry
@@ -208,18 +210,15 @@ function updateEntry(elm, id, entry, props, reqd, enums) {
       }
     }
     
-    if(error!=="") {
+    if (error !== "") {
       rtn = utils.exception(error);
-    } 
-    else {
-      rtn = storage(
-        {
-          object:elm, 
-          action:'update', 
-          id:id, 
-          item:utils.setProps(item, props)
-        }
-      );
+    } else {
+      rtn = storage({
+				object: elm, 
+				action: 'update', 
+				id: id, 
+				item: utils.setProps(item, props)
+			});
     }
   }
   
@@ -228,19 +227,31 @@ function updateEntry(elm, id, entry, props, reqd, enums) {
 
 /**
  * @function removeEntry
+ * @inner
  * @param {} elm
  * @param {} id
  */
 function removeEntry (elm, id) {
   var rtn, check;
   
-  check = storage({object:elm, action:'item', id:id});
-  if(check===null) {
+  check = storage({
+		object: elm,
+		action: 'item',
+		id: id
+	});
+  if (check === null) {
     rtn = utils.exception("File Not Found", "No record on file", 404);
   }
   else {
-    storage({object:elm, action:'remove', id:id});
-    rtn = storage({object:elm,action:'list'});
+    storage({
+			object: elm,
+			action: 'remove',
+			id: id
+		});
+    rtn = storage({
+			object: elm,
+			action: 'list'
+		});
   }
   
   return rtn;

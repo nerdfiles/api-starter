@@ -1,21 +1,35 @@
-/*******************************************************
- * module: ejs helpers for DARRT
- * Mike Amundsen (@mamund)
- *******************************************************/
+/**
+ * @module lib/ejs-helpers
+ * @author Mike Amundsen (@mamund)
+ * @description
+ * ejs helpers for DARRT
+ */
 
+exports.stateValue = stateValue;
+exports.iif = iff;
+exports.sayHi = sayHi;
 
-// token replacement
-// val = "{id}"
-// state = {id:"123",....}
-// def = "<default-value>"
-//
-// note: {makeid} is special, generates unique ID
-exports.stateValue = function(val, state, request, def) {
-  var v = val.toString()||"";
-  var st = state||{};
-  var d = def||v;
+/**
+ * @function stateValue
+ * @static
+ * @param {} val
+ * @param {} state
+ * @param {} request
+ * @param {} def
+ * @description
+ * token replacement
+ * val = "{id}"
+ * state = {id:"123",....}
+ * def = "<default-value>"
+ *
+ * note: {makeid} is special, generates unique ID
+ */
+function stateValue (val, state, request, def) {
+  var v = val.toString() || "";
+  var st = state || {};
+  var d = def || v;
   var x=0;
-  req = request||{};
+  var req = request || {};
   var hst = "";
   var pxy = "";
   var aty = "";
@@ -26,52 +40,70 @@ exports.stateValue = function(val, state, request, def) {
   aty = (pxy !== "" ? pxy : hst);
 
   // handle special macros
-  if(v.indexOf("{makeid}")!==-1) {
-    v = v.replace("{makeid}",makeId());
+  if (v.indexOf("{makeid}") !== -1) {
+    v = v.replace("{makeid}", makeId());
     x=1
   }
-  if(v.indexOf("{fullurl}")!==-1) {
-    v = v.replace("{fullurl}",(req ? req.protocol : "http") + "://" + aty + (req ? req.originalUrl : "/"));
+  if (v.indexOf("{fullurl}") !== -1) {
+    v = v.replace("{fullurl}", (req ? req.protocol : "http") + "://" + aty + (req ? req.originalUrl : "/"));
     x=1;
   }
-  if(v.indexOf("{fullhost}")!==-1) {
-    v = v.replace("{fullhost}",(req ? req.protocol : "http") + "://"+ aty );  
+  if (v.indexOf("{fullhost}") !== -1) {
+    v = v.replace("{fullhost}", (req ? req.protocol : "http") + "://"+ aty );  
     x=1;
   }
-  if(v.indexOf("{date}")!==-1) {
+  if (v.indexOf("{date}") !== -1) {
     v = v.replace("{date}", fDate());
     x=1;
   }
 
   // handle named properties
-  for(s in st) {
-    if(v.indexOf('{'+s+'}')!==-1) {
-      v = v.replace('{'+s+'}',st[s]);
+  for (var s in st) {
+    if(v.indexOf('{'+s+'}') !== -1) {
+      v = v.replace('{'+s+'}', st[s]);
       x=1;
     }
   }
   
   // insert default, if nothing found
-  if(x==0) {
+  if (x == 0) {
     v = d;
   }
   
   return v;
 }
 
-// immediate if
-exports.iif = function(cond,value){
-  if(cond) return value;
+/**
+ * @function iff
+ * @static
+ * @param {} cond
+ * @param {} value
+ * @description
+ * immediate if
+ */
+function iff (cond,value){
+  if (cond) return value;
   return '';
 }  
 
-// for testing
-exports.sayHi = function(name) {
+/**
+ * @function sayHi
+ * @static
+ * @param {} name
+ * @description
+ * for testing
+ */
+function sayHi (name) {
   return "Hello " + name;
 } 
 
 // formatted date
-function fDate(dte) {
+/**
+ * @function fDate
+ * @inner
+ * @param {Date} dte A date object.
+ */
+function fDate (dte) {
   var cdate = dte||new Date();
   let fdte = cdate.getFullYear() + "-" 
     + lz(cdate.getMonth() + 1) + "-" 
@@ -82,7 +114,13 @@ function fDate(dte) {
      
   return fdte;
 }
-function lz(n){
+
+/**
+ * @function lz
+ * @inner
+ * @param {number} n A number for representing subcomponents of a date.
+ */
+function lz (n){
   var rtn = "";
   if(n <= 9){
     rtn = "0" + n;
@@ -93,8 +131,14 @@ function lz(n){
   return rtn;
 }
 
-// local unique id generator
-function makeId() {
+/**
+ * @function makeId
+ * @inner
+ * @return {string} A randomized ID.
+ * @description
+ * local unique id generator
+ */
+function makeId () {
   var rtn;
 
   rtn = String(Math.random());

@@ -1,10 +1,9 @@
 /**
  * @module lib/utils
+ * @author Mike Amundsen (@mamund)
+ * @description
+ * internal utilities
  */
-/*******************************************************
- * module: internal utilities
- * Mike Amundsen (@mamund)
- *******************************************************/
 
 var fs = require('fs');
 var qs = require('querystring');
@@ -16,6 +15,11 @@ var ejsHelper = require('./ejs-helpers');
 // for handling hal-forms extension
 var halFormType = "application/prs.hal-forms+json";
 var sirenSopType = "application/prs.siren-sop+json";
+
+// for handling basic mime-types
+var htmlType = '.html';
+var jsType = '.js';
+var cssType = '.css';
 
 // load up action map (for Siren)
 var httpActions = {};
@@ -47,7 +51,7 @@ exports.handler = handler;
  * map WeSTL actions to HTTP
  */
 function actionMethod (action, protocol) {
-  var p = protocol||"http";
+  var p = protocol || "http";
   var rtn = "GET";
 
   switch(p) {
@@ -71,9 +75,9 @@ function setProps (item, props) {
   var rtn, i, x, p;
     
   rtn = {};  
-  for(i=0,x=props.length;i<x;i++) {
+  for(i = 0,x = props.length; i < x; i++) {
     p = props[i];
-    rtn[p] = (item[p]||"");
+    rtn[p] = (item[p] || "");
   }
   return rtn;
 }
@@ -88,11 +92,10 @@ function cleanList (elm) {
   var coll;
 
   coll = [];
-  if(Array.isArray(elm) === true) {
+  if (Array.isArray(elm) === true) {
     coll = elm;
-  }
-  else {
-    if(elm!==null) {
+  } else {
+    if (elm !== null) {
       coll.push(elm);
     }
   }
@@ -163,19 +166,19 @@ function file (req, res, parts, respond) {
     body = fs.readFileSync(folder + parts[1]);
     
     type = 'text/plain';
-    if (parts[1].indexOf('.js') !== -1) {
+    if (parts[1].indexOf(jsType) !== -1) {
       type = 'application/javascript';
     }
-    if (parts[1].indexOf('.css') !== -1) {
+    if (parts[1].indexOf(cssType) !== -1) {
       type = 'text/css';
     }
-    if (parts[1].indexOf('.html') !== -1) {
+    if (parts[1].indexOf(htmlType) !== -1) {
       type = 'text/html';
     }
-    if(req.headers["accept"].indexOf(halFormType)!==-1) {
+    if(req.headers["accept"].indexOf(halFormType) !== -1) {
       type = halFormType;
     }
-    if(req.headers["accept"].indexOf(sirenSopType)!==-1) {
+    if(req.headers["accept"].indexOf(sirenSopType) !== -1) {
       type = sirenSopType;
     }
     
@@ -218,12 +221,13 @@ function parseBody (body, ctype) {
   return msg;
 }
 
-// process an incoming cj template body
 /**
  * @function cjBody
  * @param {} body
+ * @description
+ * process an incoming cj template body
  */
-function cjBody(body) {
+function cjBody (body) {
   var rtn, data, i, x;
   
   rtn = {};
@@ -236,13 +240,13 @@ function cjBody(body) {
   }
 
   // if they only pass data array...
-  if(data===null && body.data) {
+  if(data === null && body.data) {
     data = body.data;
   }
 
   // create nvp dictionary
   if (data !== null) {
-    for (i=0, x=data.length; i < x; i++) {
+    for (i = 0, x = data.length; i < x; i++) {
       rtn[data[i].name] = data[i].value;
     }
   }
@@ -252,11 +256,11 @@ function cjBody(body) {
 
 /**
  * @function getQArgs
- * @param {} req
+ * @param {object} req - Request object.
  * @description
  * parse the querystring args
  */
-function getQArgs(req) {
+function getQArgs (req) {
   var q, qlist;
   
   qlist = null;
@@ -268,13 +272,13 @@ function getQArgs(req) {
 }
 
 /**
- * exports.exception.
- *
- * @param {} name
- * @param {} message
- * @param {} code
+ * @function exception.
+ * @param {string} name
+ * @param {string} message
+ * @param {number} code
  * @param {} type
  * @param {} url
+ * @description
  * craft an internal exception object
  * based on RFC7807 (problem details
  * local exeption routine
@@ -282,11 +286,11 @@ function getQArgs(req) {
 function exception (name, message, code, type, url) {
   var rtn = {};
 
-  rtn.type = (type||"error");
-  rtn.title = (name||"Error");
-  rtn.detail = (message||name);
-  rtn.status = (code||400).toString();
-  if(url) {rtn.instance = url};
+  rtn.type = (type || "error");
+  rtn.title = (name || "Error");
+  rtn.detail = (message || name);
+  rtn.status = (code || 400).toString();
+  if (url) { rtn.instance = url; }
 
   return rtn;
 }
@@ -323,12 +327,12 @@ function handler (req, res, fn, type, representation) {
 
   fn(req,res).then(function (body) {
     if (jsUtil.isArray(body) === true) {
-      oType = type||"collection";
+      oType = type || "collection";
       if (body.length !== 0 && body[0].type && body[0].type === "error") {
         xr.push(exception(
-          body[0].name||body[0].title,
-          body[0].message||body[0].detail,
-          body[0].code||body[0].status,
+          body[0].name || body[0].title,
+          body[0].message || body[0].detail,
+          body[0].code || body[0].status,
           body[0].oType,
           'http://' + req.headers.host + req.url
         ));
@@ -338,12 +342,12 @@ function handler (req, res, fn, type, representation) {
         rtn = body
       }
     } else {
-      oType = type||"item";
-      if (body.type && body.type==='error') {
+      oType = type || "item";
+      if (body.type && body.type === 'error') {
         xr.push(exception(
-          body.name||body.title,
+          body.name || body.title,
           body.detail,
-          body.code||body.status,
+          body.code || body.status,
           body.oType,
           'http://' + req.headers.host + req.url
         ));
@@ -354,20 +358,21 @@ function handler (req, res, fn, type, representation) {
       } 
     }
 
-    if (oType==="error") {
-      res.setHeader("content-type","application/problem+json");
-      res.status(rtn.code||400).send(JSON.stringify({error:rtn},null,2));
+    if (oType === "error") {
+      res.setHeader("content-type", "application/problem+json");
+      res.status(rtn.code || 400).send(JSON.stringify({ error: rtn }, null, 2));
     } else {
       var reply = "";
-      rtn = {rtn:rtn,
-        type:oType, 
-        pForms:pForms,
-        iForms:iForms, 
-        metadata:metadata, 
-        helpers:ejsHelper, 
-        request:req
+      rtn = {
+				rtn: rtn,
+        type: oType, 
+        pForms: pForms,
+        iForms: iForms, 
+        metadata: metadata, 
+        helpers: ejsHelper, 
+        request: req
       };
-      if (template.view!=="") {
+      if (template.view !== "") {
         reply= ejs.render(template.view, rtn);
       } else {
         reply = JSON.stringify(rtn, null, 2);
@@ -386,8 +391,8 @@ function handler (req, res, fn, type, representation) {
       "error",
       'http://' + req.headers.host + req.url
     ));
-    res.setHeader("content-type","application/problem+json");      
-    res.status(500).send(JSON.stringify({error:xr},null,2));
+    res.setHeader("content-type", "application/problem+json");      
+    res.status(500).send(JSON.stringify({ error: xr }, null, 2));
   });
 }
 
@@ -411,7 +416,7 @@ function resolveAccepts (req, templates) {
       rtn = template;
     }
   });
-  if (rtn==="") {
+  if (rtn === "") {
     rtn = fallback;
   }
   return rtn;
@@ -426,17 +431,17 @@ function resolveAccepts (req, templates) {
  * tag filter
  */
 function tagFilter(collection, filter) {
-  var coll = collection||[];
-  var tag = filter||"";
+  var coll = collection || [];
+  var tag = filter || "";
   var rtn = [];
   var f;
   
-  if (tag==="") {
+  if (tag === "") {
     rtn = coll;
   } else {
     coll.forEach(function (item) {
-      f = item.tags||"";
-      if (f==="") {
+      f = item.tags || "";
+      if (f === "") {
         rtn.push(item);
       } else {
         if (f.indexOf(tag) !== -1) {

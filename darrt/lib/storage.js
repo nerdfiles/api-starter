@@ -1,20 +1,16 @@
 /**
  * @module lib/storage
- */
-/*******************************************************
- * module: darrt simple storage (via files)
- * Mike Amundsen (@mamund)
- *******************************************************/
-
-/*
+ * @author Mike Amundsen (@mamund)
+ * @description
+ * darrt simple storage (via files)
  * DARRT DATA Module
- - simple storage component writes files to disk
- - FOLDER is the collection (tasks, users, notes, etc.)
- - FILE is the record (stored as JSON object, w/ ID as filename)
- - CRUD style interface (list, item, add, update, remove)
- - "contains"-type filtering is supported, no sort or join
- - NOTE: all actions are *synchronous* 
-*/
+ * - simple storage component writes files to disk
+ * - FOLDER is the collection (tasks, users, notes, etc.)
+ * - FILE is the record (stored as JSON object, w/ ID as filename)
+ * - CRUD style interface (list, item, add, update, remove)
+ * - "contains"-type filtering is supported, no sort or join
+ * - NOTE: all actions are *synchronous* 
+ */
 
 var fs = require('fs');
 var folder = process.cwd() + '/data/';
@@ -30,7 +26,7 @@ module.exports = main;
  * @static
  * @param {object} args - Configuration object for storage medium.
  */
-function main(args) {
+function main (args) {
   var rtn;
 
   // resolve arguments
@@ -72,15 +68,17 @@ function main(args) {
  
 }
 
-// get a list of items (possibly via filter)
 /**
  * @function getList
- * @param {} object
- * @param {} filter
- * @param {} fields
+ * @inner
+ * @param {object} object
+ * @param {object} filter
+ * @param {array} fields
+ * @description
+ * get a list of items (possibly via filter)
  */
-function getList(object, filter, fields) {
-  var coll, item, list, i, x, t, name;
+function getList (object, filter, fields) {
+  var coll, item, list, i, x, t;
 
   coll = [];
   try {
@@ -114,8 +112,8 @@ function getList(object, filter, fields) {
   }
 
   // apply field filter
-  for(i=0,x=coll.length;i<x;i++) {
-    coll[i] = applyFields(coll[i],fields);
+  for (i = 0, x = coll.length; i < x; i++) {
+    coll[i] = applyFields(coll[i], fields);
   }
 
   return coll;
@@ -123,20 +121,21 @@ function getList(object, filter, fields) {
 
 /**
  * @function getItem
- * @param {} object
- * @param {} id
- * @param {} fields
+ * @inner
+ * @param {object} item
+ * @param {string} id
+ * @param {array} fields
  * @description
  * retrieve and existing item
  */
-function getItem(object, id, fields) {
-  var rtn,args;
+function getItem (item, id, fields) {
+  var rtn, args;
 
   try {
-    rtn = JSON.parse(fs.readFileSync(folder + object + '/' + id));
+    rtn = JSON.parse(fs.readFileSync(folder + item + '/' + id));
   } catch (ex) {
     args = {};
-    args.title = "SimpleStorage: ["+object+"]";
+    args.title = "SimpleStorage: ["+item+"]";
     args.detail = "Not Found ["+id+"]";
     args.code = 400;
     args.debug = ex.message;
@@ -150,8 +149,9 @@ function getItem(object, id, fields) {
 
 /**
  * @function applyFields
+ * @inner
  * @param {object} item - object to return
- * @param {string} fields - a string of field names to return
+ * @param {array} fields - an array of field names to return
  * @description
  * apply field list
  */
@@ -173,11 +173,13 @@ function applyFields (item, fields) {
 
 /**
  * @function createObject
+ * @inner
  * @param {object} object - Object.
+ * @description
  * create a storage object (folder)
  */
-function createObject(object) {
-  var args = {};
+function createObject (object) {
+  var rtn, args = {};
   try {
     if(folder && folder !==null) {
       if(!fs.existsSync(folder)) {
@@ -201,17 +203,20 @@ function createObject(object) {
     args.debug = ex.message;
     rtn = exception(args);
   }
+
+	return rtn;
 }
 
 /**
  * @function addItem
+ * @inner
  * @param {} object
  * @param {} item
  * @param {} id
  * @description
  * add a new item
  */
-function addItem(object, item, id) {
+function addItem (object, item, id) {
   var rtn, args;
 
   if (id) {
@@ -245,13 +250,14 @@ function addItem(object, item, id) {
 
 /**
  * @function updateItem
+ * @inner
  * @param {} object
  * @param {} item
  * @param {} id
  * @description
  * modify an existing item
  */
-function updateItem(object, item, id) {
+function updateItem (object, item, id) {
   var current, rtn, args;
 
   current = getItem(object, id);
@@ -284,6 +290,7 @@ function updateItem(object, item, id) {
 
 /**
  * @function removeItem
+ * @inner
  * @param {object} object - Item to be removed.
  * @param {string} id - Id of item.
  * @description
@@ -303,6 +310,7 @@ function removeItem (object, id) {
 
 /**
  * @function makeId
+ * @inner
  * @description
  * generate a unique id 
  */
@@ -318,7 +326,8 @@ function makeId () {
 
 /**
  * @function exception
- * @param {} args
+ * @inner
+ * @param {object} args - Object for the error.
  * @description
  * craft an exception msg
  */
