@@ -35,8 +35,8 @@ router.use(timeLog);
  * optional tracking middleware
  */
 function timeLog (req, res, next) {
-  console.log('Time: ', Date.now() + " : " + req.headers.host + req.url + " : " + req.method + " : " + JSON.stringify(req.body))
-  next()
+  console.log('Time: ', Date.now() + " : " + req.headers.host + req.url + " : " + req.method + " : " + JSON.stringify(req.body));
+  next();
 }
 
 /************************************************************************/
@@ -150,10 +150,10 @@ function getResource (req,res) {
   args.action = actions.read;
   args.type = "api";
   args.config = {
-    metadata:metadata,
-    templates:templates,
-    forms:forms,
-    filter:"item"
+    metadata: metadata,
+    templates: templates,
+    forms: forms,
+    filter: "item"
   };
   respond(args);
 }
