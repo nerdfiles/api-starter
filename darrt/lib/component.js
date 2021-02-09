@@ -100,8 +100,8 @@ function main (args) {
 /**
  * @function addEntry
  * @inner
- * @param {object} elm
- * @param {object} entry
+ * @param {string} elm
+ * @param {string} entry
  * @param {array} props
  * @param {array} reqd
  * @param {array} enums
@@ -155,7 +155,7 @@ function addEntry (elm, entry, props, reqd, enums, defs) {
     rtn = storage({
 			object: elm,
 			action: 'add',
-			item: utils.setProps(item,props),
+			item: utils.setProps(item, props),
 			id
 		});
   }
@@ -166,9 +166,9 @@ function addEntry (elm, entry, props, reqd, enums, defs) {
 /**
  * @function updateEntry
  * @inner
- * @param {object} elm
+ * @param {string} elm
  * @param {string} id
- * @param {object} entry
+ * @param {string} entry
  * @param {array} props
  * @param {array} reqd
  * @param {array} enums
@@ -226,7 +226,7 @@ function updateEntry (elm, id, entry, props, reqd, enums) {
 /**
  * @function removeEntry
  * @inner
- * @param {object} elm
+ * @param {string} elm
  * @param {string} id
  */
 function removeEntry (elm, id) {
