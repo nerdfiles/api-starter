@@ -8,7 +8,7 @@
     "docs": "./node_modules/.bin/jsdoc darrt/** -d docs",
     "docs/open": "open docs/index.html",
     "analysis": "./node_modules/.bin/plato -r -d report ./darrt/**",
-    "analysis/open": "./report/index.html",
+    "analysis/open": "open ./report/index.html",
     "start": "node index",
     "dev": "nodemon index"
   },
