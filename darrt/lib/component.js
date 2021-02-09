@@ -71,7 +71,7 @@ function main (args) {
       break;
     case 'filter':
       rtn = utils.cleanList(storage({ object: elm, action: 'filter', filter: filter, fields: fields }));
-      break
+      break;
     case 'add':
       rtn = addEntry(elm, item, props, reqd, enums, defs);
       break;
@@ -110,7 +110,7 @@ function main (args) {
 function addEntry (elm, entry, props, reqd, enums, defs) {
   var rtn, item, error, id, i, x;
  
-  item = {}
+  item = {};
   
   // ensure correct properties
   for (i = 0, x = props.length; i < x; i++) {
@@ -156,7 +156,7 @@ function addEntry (elm, entry, props, reqd, enums, defs) {
 			object: elm,
 			action: 'add',
 			item: utils.setProps(item, props),
-			id
+			id: id
 		});
   }
   
