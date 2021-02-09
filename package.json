@@ -10,7 +10,8 @@
     "analysis": "./node_modules/.bin/plato -r -d report ./darrt/**",
     "analysis/open": "open ./report/index.html",
     "start": "node index",
-    "dev": "nodemon index"
+    "dev": "nodemon index",
+    "publish": "surge ."
   },
   "repository": {
     "type": "git",
