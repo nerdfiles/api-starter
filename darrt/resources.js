@@ -230,8 +230,8 @@ function patchStatus (req, res) {
  * initialize module
  */
 function init () {
-  express = require('express')
-  router = express.Router()
+  express = require('express');
+  router = express.Router();
   bodyParser = require('body-parser');
 
   actions = require('./actions');
