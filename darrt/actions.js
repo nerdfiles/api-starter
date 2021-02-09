@@ -1,21 +1,16 @@
 /**
  * @namespace actions
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * DARRT Framework
+ * action elements
+ * actions for the company service
  */
-/*****************************************
-// DARRT Framework
-// action elements
-// 2020-02-01 : mamund
- *****************************************/
 
 var component = require('./lib/component');
 var data = require('./data');
 var object = "api";
-
-/*****************************************
-// actions for the company service
-// home, create, list, filter,
-// read, update, status, remove
- *****************************************/
 
 module.exports.home = home;
 module.exports.create = create;
@@ -32,7 +27,7 @@ module.exports.remove = remove;
  * @param {object} req - Express Request object.
  */
 function home (req) {
-  return new Promise(function (resolve,reject) {
+  return new Promise(function (resolve, reject) {
     var body = [];
 
     // hack to handle empty root for non-link types
@@ -61,25 +56,20 @@ function home (req) {
  * @param {object} req - Express Request object.
  */
 function create (req) {
-  return new Promise(function(resolve,reject) {
-    if(req.body) {
-     var body = req.body;
-     resolve(
-      component(
-        {
-          name:object,
-          action:'add',
-          item:body,
-          props:data.props,
-          reqd:data.reqd,
-          enums:data.enums,
-          defs:data.defs
-        }
-       )
-     );
-    }
-    else {
-      reject({error:"invalid body"});
+  return new Promise(function (resolve, reject) {
+    if (req.body) {
+		var body = req.body;
+			resolve(component({
+				name: object,
+				action: 'add',
+				item: body,
+				props: data.props,
+				reqd: data.reqd,
+				enums: data.enums,
+				defs: data.defs
+			}));
+    } else {
+      reject({ error: "invalid body" });
     }
   });
 }
@@ -103,7 +93,7 @@ function list () {
  * @param {object} req - Express Request object.
  */
 function filter (req) {
-  return new Promise(function (resolve, reject){
+  return new Promise(function (resolve, reject) {
     if (req.query && req.query.length !== 0) {
       resolve(component({
         name: object,
@@ -122,13 +112,13 @@ function filter (req) {
  * @param {object} req Express - Request object.
  */
 function read (req) {
-  return new Promise(function(resolve,reject){
-    if(req.params.id && req.params.id!==null) {
+  return new Promise(function (resolve, reject) {
+    if (req.params.id && req.params.id !== null) {
       var id = req.params.id;
       resolve(component({
-        name:object,
-        action:'item',
-        id:id
+        name: object,
+        action: 'item',
+        id: id
       }));
     }
     else {
@@ -170,21 +160,21 @@ function update (req) {
  */
 function status (req) {
   var id, body;
-  return new Promise(function (resolve, reject){
+  return new Promise(function (resolve, reject) {
     id = req.params.id || null;
     body = req.body || null;
-    if (id!==null && body!==null) {
+    if (id !== null && body !== null) {
       resolve(component({
-        name:object,
-        action:'update',
-        id:id,
-        item:body,
-        props:data.props,
-        reqd:data.data,
-        enums:data.enums
+        name: object,
+        action: 'update',
+        id: id,
+        item: body,
+        props: data.props,
+        reqd: data.data,
+        enums: data.enums
       }));
     } else {
-      reject({error:"missing id and/or body"});
+      reject({ error: "missing id and/or body" });
     }
   });
 }

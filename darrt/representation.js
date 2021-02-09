@@ -1,11 +1,11 @@
 /**
  * @namespace representation
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * bigco, inc
+ * company response representations
  */
-/*****************************************
-// bigco, inc
-// company response representations
-// 2020-02-01 : mamund
- *****************************************/
 
 // load representors
 var appJson = require('./representors/app-json');
@@ -58,7 +58,6 @@ function getResponseTypes () {
 // init to hold forms/links
 /**
  * @memberof representation
- * @namespace
  * @property {object} forms          - Forms.
  * @property {array} forms.pageForms - Page forms.
  * @property {array} forms.itemForms - Item forms.
