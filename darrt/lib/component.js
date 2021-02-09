@@ -41,7 +41,7 @@ function main (args) {
   fields = args.fields || "";
   
   // confirm existence of object storage
-  storage({ action: 'create', object: elm});
+  storage({ action: 'create', object: elm });
 
   // handle action request
   switch (action) {
@@ -67,10 +67,10 @@ function main (args) {
       break;
     case 'read':
     case 'item':
-      rtn = utils.cleanList(storage({object: elm, action: 'item', id: id, fields: fields}));
+      rtn = utils.cleanList(storage({ object: elm, action: 'item', id: id, fields: fields }));
       break;
     case 'filter':
-      rtn = utils.cleanList(storage({ object: elm, action: 'filter', filter: filter, fields: fields}));
+      rtn = utils.cleanList(storage({ object: elm, action: 'filter', filter: filter, fields: fields }));
       break
     case 'add':
       rtn = addEntry(elm, item, props, reqd, enums, defs);
@@ -88,12 +88,11 @@ function main (args) {
   }
  
   /* return a promise object */	
-  return new Promise(function(resolve, reject) {
-    if(rtn) {
+  return new Promise(function (resolve, reject) {
+    if (rtn) {
       resolve(rtn);
-    }
-    else {
-      reject({error:"unable to process component request"});
+    } else {
+      reject({ error: "unable to process component request" });
     }
   });
 }
@@ -101,31 +100,30 @@ function main (args) {
 /**
  * @function addEntry
  * @inner
- * @param {} elm
- * @param {} entry
- * @param {} props
- * @param {} reqd
- * @param {} enums
- * @param {} defs
+ * @param {object} elm
+ * @param {object} entry
+ * @param {array} props
+ * @param {array} reqd
+ * @param {array} enums
+ * @param {array} defs
  */
 function addEntry (elm, entry, props, reqd, enums, defs) {
-  var rtn, item, error, id;
+  var rtn, item, error, id, i, x;
  
   item = {}
   
   // ensure correct properties
-  for(i=0,x=props.length;i<x;i++) {
-    if(props[i]!=="id") {
-      item[props[i]] = (entry[props[i]]||"");
-    }
-    else {
+  for (i = 0, x = props.length; i < x; i++) {
+    if (props[i] !== " id") {
+      item[props[i]] = (entry[props[i]] || "");
+    } else {
       id = entry[props[i]];
     }
   }
   
   // fix up any missing defaults
-  for(i=0,x=defs.length;i<x;i++) {
-    if(item[defs[i].name]==="") {
+  for (i = 0, x = defs.length; i < x; i++) {
+    if (item[defs[i].name] === "") {
       item[defs[i].name] = defs[i].value;
     }
   }
@@ -133,36 +131,33 @@ function addEntry (elm, entry, props, reqd, enums, defs) {
   error = "";
   
   // check for missing properties
-  for(i=0,x=reqd.length;i<x;i++) {
-    if(item[reqd[i]]==="") {
+  for (i = 0, x = reqd.length; i < x; i++) {
+    if (item[reqd[i]] === "") {
       error += "Missing "+ reqd[i] + " ";
     }
   }
 
   // validate enumerated properties
-  for(i=0,x=enums.length;i<x;i++) {
-    for(var key in enums[i]) {
-    }
-    if(item[key]!=="") {
-      if(enums[i][key].indexOf(item[key])===-1) {
-        error += "Invalid enumerator [" + item[key] + "] for " + key + " ";
-      }
+  for (i = 0, x = enums.length; i < x; i++) {
+    for (var key in enums[i]) {
+			if (item[key] !== "") {
+				if (enums[i][key].indexOf(item[key]) === -1) {
+					error += "Invalid enumerator [" + item[key] + "] for " + key + " ";
+				}
+			}
     }
   }
 
   // respond w/ errors or commit to storage  
-  if(error.length!==0) {
+  if (error.length !== 0) {
     rtn = utils.exception(error);
-  }
-  else {
-    rtn = storage(
-      {
-        object:elm, 
-        action:'add', 
-        item:utils.setProps(item,props),
-        id
-      }
-    );
+  } else {
+    rtn = storage({
+			object: elm,
+			action: 'add',
+			item: utils.setProps(item,props),
+			id
+		});
   }
   
   return rtn;
@@ -171,42 +166,45 @@ function addEntry (elm, entry, props, reqd, enums, defs) {
 /**
  * @function updateEntry
  * @inner
- * @param {} elm
- * @param {} id
- * @param {} entry
- * @param {} props
- * @param {} reqd
- * @param {} enums
+ * @param {object} elm
+ * @param {string} id
+ * @param {object} entry
+ * @param {array} props
+ * @param {array} reqd
+ * @param {array} enums
  */
-function updateEntry(elm, id, entry, props, reqd, enums) {
-  var rtn, check, item, error;
+function updateEntry (elm, id, entry, props, reqd, enums) {
+  var rtn, check, item, error, i, x;
 
-  check = storage({object:elm, action:'item', id:id}); 
-  if(check===null || (check.type && check.type==="error")) {
+  check = storage({
+		object: elm,
+		action: 'item',
+		id: id
+	}); 
+  if (check === null || (check.type && check.type === "error")) {
     rtn = utils.exception("File Not Found", "No record on file", 404);
-  }
-  else {
+  } else {
     item = check;
-    for(i=0,x=props.length; i<x; i++) {
-      if(props[i]!=="id") {
-        item[props[i]] = (entry[props[i]]===undefined?check[props[i]]:entry[props[i]]);
+    for (i = 0, x = props.length; i < x; i++) {
+      if (props[i]!=="id") {
+        item[props[i]] = (entry[props[i]] === undefined ? check[props[i]] : entry[props[i]]);
       }
     }
 
     error = "";
-    for(i=0,x=reqd.length;i<x;i++) {
-      if(item[reqd[i]]==="") {
+    for (i = 0, x = reqd.length; i < x; i++) {
+      if (item[reqd[i]] === "") {
         error += "Missing "+ reqd[i] + " ";
       }
     }
 
-    for(i=0,x=enums.length;i<x;i++) {
-      for(var key in enums[i]) {
-      }
-      if(item[key]!=="") {
-        if(enums[i][key].indexOf(item[key])===-1) {
-          error += "Invalid enumerator [" + item[key] + "] for " + key + " ";
-        }
+    for (i = 0, x = enums.length; i < x; i++) {
+      for (var key in enums[i]) {
+				if (item[key] !== "") {
+					if (enums[i][key].indexOf(item[key]) === -1) {
+						error += "Invalid enumerator [" + item[key] + "] for " + key + " ";
+					}
+				}
       }
     }
     
@@ -228,8 +226,8 @@ function updateEntry(elm, id, entry, props, reqd, enums) {
 /**
  * @function removeEntry
  * @inner
- * @param {} elm
- * @param {} id
+ * @param {object} elm
+ * @param {string} id
  */
 function removeEntry (elm, id) {
   var rtn, check;
@@ -257,5 +255,6 @@ function removeEntry (elm, id) {
   return rtn;
   
 }
+
 // EOF
 

@@ -1,11 +1,10 @@
 /**
  * @namespace resources
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * darrt resources 
  */
-/*****************************************
-// bigco, inc
-// darrt resources 
-// 2020-02-01 : mamund
- *****************************************/
 
 /*******************************************
 // initialization and setup for DARRT
@@ -29,11 +28,11 @@ router.use(timeLog);
 /**
  * @memberof resources
  * @function timeLog
- * @desc
+ * @param {object} req - Express Request object.
+ * @param {object} res - Express Response object.
+ * @param {function} next - Express pass-through callback.
+ * @description
  * optional tracking middleware
- * @param {} req
- * @param {} res
- * @param {} next
  */
 function timeLog (req, res, next) {
   console.log('Time: ', Date.now() + " : " + req.headers.host + req.url + " : " + req.method + " : " + JSON.stringify(req.body))
@@ -48,29 +47,29 @@ function timeLog (req, res, next) {
 router.get('/', getHome);
 router.post('/', postResource);
 router.get('/list/', listResources);
-router.get('/filter/', filterResource);
+router.get('/filter/', filterResources);
 router.get('/:id', getResource);
 router.put('/:id', putResource);
 router.delete('/:id', deleteResource);
-router.patch('/status/:id', patchResourceStatus);
+router.patch('/status/:id', patchStatus);
 
 /**
  * @memberof resources
  * @function getHome
- * @param {} req
- * @param {} res
+ * @param {object} req - Express Request object.
+ * @param {object} res - Express Response object.
  */
-function getHome (req,res) {
+function getHome (req, res) {
   var args = {};
   args.request = req;
   args.response = res;
   args.action = actions.home;
   args.type = "home";
   args.config = {
-    metadata:metadata,
-    templates:templates,
-    forms:forms,
-    filter:"home"
+    metadata: metadata,
+    templates: templates,
+    forms: forms,
+    filter: "home"
   };
   respond(args);
 }
@@ -78,20 +77,20 @@ function getHome (req,res) {
 /**
  * @memberof resources
  * @function postResource
- * @param {} req
- * @param {} res
+ * @param {object} req - Express Request object.
+ * @param {object} res - Express Response object.
  */
-function postResource (req,res) {
+function postResource (req, res) {
   var args = {};
   args.request = req;
   args.response = res;
   args.action = actions.create;
   args.type = "api";
   args.config = {
-    metadata:metadata,
-    templates:templates,
-    forms:forms,
-    filter:"list"
+    metadata: metadata,
+    templates: templates,
+    forms: forms,
+    filter: "list"
   };
   respond(args);
 }
@@ -99,41 +98,41 @@ function postResource (req,res) {
 /**
  * @function listResources
  * @memberof resources
- * @param {} req
- * @param {} res
+ * @param {object} req - Express Request object.
+ * @param {object} res - Express Response object.
  */
-function listResources (req,res) {
+function listResources (req, res) {
   var args = {};
   args.request = req;
   args.response = res;
   args.action = actions.list;
   args.type = "api";
   args.config = {
-    metadata:metadata,
-    templates:templates,
-    forms:forms,
-    filter:"list"
+    metadata: metadata,
+    templates: templates,
+    forms: forms,
+    filter: "list"
   };
   respond(args);
 }
 
 /**
- * @function filterResource
+ * @function filterResources
  * @memberof resources
- * @param {} req
- * @param {} res
+ * @param {object} req - Express Request object.
+ * @param {object} res - Express Response object.
  */
-function filterResource (req,res){
+function filterResources (req, res) {
   var args = {};
   args.request = req;
   args.response = res;
   args.action = actions.filter;
   args.type = "api";
   args.config = {
-    metadata:metadata,
-    templates:templates,
-    forms:forms,
-    filter:"list"
+    metadata: metadata,
+    templates: templates,
+    forms: forms,
+    filter: "list"
   };
   respond(args);
 }
@@ -141,8 +140,8 @@ function filterResource (req,res){
 /**
  * @function getResource
  * @memberof resources
- * @param {} req
- * @param {} res
+ * @param {object} req - Express Request object.
+ * @param {object} res - Express Response object.
  */
 function getResource (req,res) {
   var args = {};
@@ -162,20 +161,20 @@ function getResource (req,res) {
 /**
  * @function putResource
  * @memberof resources
- * @param {} req
- * @param {} res
+ * @param {object} req - Express Request object.
+ * @param {object} res - Express Response object.
  */
-function putResource (req,res) {
+function putResource (req, res) {
   var args = {};
   args.request = req;
   args.response = res;
   args.action = actions.update;
   args.type = "api";
   args.config = {
-    metadata:metadata,
-    templates:templates,
-    forms:forms,
-    filter:"item"
+    metadata: metadata,
+    templates: templates,
+    forms: forms,
+    filter: "item"
   };
   respond(args);
 }
@@ -183,41 +182,41 @@ function putResource (req,res) {
 /**
  * @function deleteResource
  * @memberof resources
- * @param {} req
- * @param {} res
+ * @param {object} req - Express Request object.
+ * @param {object} res - Express Response object.
  */
-function deleteResource (req,res) {
+function deleteResource (req, res) {
   var args = {};
   args.request = req;
   args.response = res;
   args.action = actions.remove;
   args.type = "api";
   args.config = {
-    metadata:metadata,
-    templates:templates,
-    forms:forms,
-    filter:"list"
+    metadata: metadata,
+    templates: templates,
+    forms: forms,
+    filter: "list"
   };
   respond(args);
 }
 
 /**
- * @function patchResourceStatus
+ * @function patchStatus
  * @memberof resources
- * @param {} req
- * @param {} res
+ * @param {object} req - Express Request object.
+ * @param {object} res - Express Response object.
  */
-function patchResourceStatus (req, res) {
+function patchStatus (req, res) {
   var args = {};
   args.request = req;
   args.response = res;
   args.action = actions.status;
   args.type = "api";
   args.config = {
-    metadata:metadata,
-    templates:templates,
-    forms:forms,
-    filter:"item"
+    metadata: metadata,
+    templates: templates,
+    forms: forms,
+    filter: "item"
   };
   respond(args);
 }
@@ -227,7 +226,7 @@ function patchResourceStatus (req, res) {
 /**
  * @function init
  * @memberof resources
- * @desc
+ * @description
  * initialize module
  */
 function init () {
@@ -241,8 +240,8 @@ function init () {
   utils = require('./lib/utils');
 
   // set up request body parsing & response templates
-  router.use(bodyParser.json({ type:representation.getResponseTypes() }));
-  router.use(bodyParser.urlencoded({ extended:representation.urlencoded }));
+  router.use(bodyParser.json({ type: representation.getResponseTypes() }));
+  router.use(bodyParser.urlencoded({ extended: representation.urlencoded }));
 
   // load response templates and input forms
   templates = representation.getTemplates();
@@ -252,8 +251,8 @@ function init () {
 /**
  * @function respond
  * @memberof resources
- * @param {} args
- * @desc
+ * @param {object} args - Configuration object for response.
+ * @description
  * local resour5ce handler function
  */
 function respond (args) {
@@ -267,5 +266,6 @@ function respond (args) {
 }
 
 // publish the capability routes
-module.exports = router
+module.exports = router;
 
+// EOF

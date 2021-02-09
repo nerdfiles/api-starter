@@ -10,7 +10,7 @@
 
 /**
  * @memberof data
- * @property props
+ * @property props {array} - Properties of resources.
  * @description
  * this service's message properties
  * you MUST include id, dateCreated, and dateUpdated
@@ -28,7 +28,7 @@ exports.props = [
 
 /**
  * @memberof data
- * @property reqd
+ * @property reqd {array} - Required fields.
  * @description
  * required properties
  */
@@ -36,7 +36,7 @@ exports.reqd = ['id','email','status'];
 
 /**
  * @memberof data
- * @property enums
+ * @property enums {array} - Enums.
  * @description
  * enumerated properties
  * @enum {string}
@@ -47,7 +47,7 @@ exports.enums = [
 
 /**
  * @memberof data
- * @property defs
+ * @property defs {array} - Defaults.
  * @description
  * default values for properties
  */
