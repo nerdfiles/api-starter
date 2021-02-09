@@ -31,21 +31,20 @@ function home (req) {
     var body = [];
 
     // hack to handle empty root for non-link types
-    var ctype = req.get("Accept")||"";
-    if("application/json text/csv */*".indexOf(ctype)!==-1) {
+    var ctype = req.get("Accept") || "";
+    if ("application/json text/csv */*".indexOf(ctype) !== -1) {
       body = {
-        id:"list",
-        name:"api-starter",
-        rel:"collection api",
-        href: "{fullhost}/list/"
+        id: "list",
+        name: "api-starter",
+        rel: "collection api",
+        href:  "{fullhost}/list/"
       };
     }
 
-    if(body) {
+    if (body) {
       resolve(body);
-    }
-    else {
-      reject({error:"invalid body"});
+    } else {
+      reject({ error:"invalid body" });
     }
   });
 }
