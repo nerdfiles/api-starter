@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "./node_modules/.bin/jsdoc darrt -d docs",
+    "docs": "./node_modules/.bin/jsdoc darrt/** -d docs",
     "docs/open": "open docs/index.html",
     "start": "node index",
     "dev": "nodemon index"
