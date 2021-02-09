@@ -15,3 +15,4 @@ exports.template =
 <%});%>`
 }
 
+// EOF

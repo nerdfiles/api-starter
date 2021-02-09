@@ -42,7 +42,7 @@ exports.reqd = ['id','email','status'];
  * @enum {string}
  */
 exports.enums = [
-  {status:['pending','active','suspended','closed']}
+  { status: ['pending','active','suspended','closed'] }
 ];
 
 /**
@@ -52,7 +52,7 @@ exports.enums = [
  * default values for properties
  */
 exports.defs = [
-  {name:"status",value:"pending"}
+  { name: "status", value: "pending" }
 ];
 
 // EOF

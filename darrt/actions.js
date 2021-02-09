@@ -108,7 +108,7 @@ function filter (req) {
 /**
  * @function read
  * @memberof actions
- * @param {object} req Express - Request object.
+ * @param {object} req - Express Request object.
  */
 function read (req) {
   return new Promise(function (resolve, reject) {

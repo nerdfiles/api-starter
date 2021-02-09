@@ -16,11 +16,11 @@ init();
 
 // shared metadata for this service
 metadata = [
-  {name: "title", value: "BigCo Activity Records"},
-  {name: "author", value: "Mike Amundsen"},
-  {name: "release", value: "1.0.0"},
-  {name: "generated", value: "{date}"}, 
-  {name: "url", value: "{fullhost}"}
+  {name: "title", value: "BigCo Activity Records" },
+  {name: "author", value: "Mike Amundsen" },
+  {name: "release", value: "1.0.0" },
+  {name: "generated", value: "{date}" }, 
+  {name: "url", value: "{fullhost}" }
 ];
 
 router.use(timeLog);
@@ -256,11 +256,11 @@ function init () {
  * local resour5ce handler function
  */
 function respond (args) {
-  var request = args.request||null;
-  var response = args.response||null;
-  var action = args.action||null;
-  var object = args.type||"";
-  var config = args.config||{};
+  var request = args.request || null;
+  var response = args.response || null;
+  var action = args.action || null;
+  var object = args.type || "";
+  var config = args.config || {};
 
   return utils.handler(request, response, action, object, config);	
 }
