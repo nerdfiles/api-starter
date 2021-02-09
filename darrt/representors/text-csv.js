@@ -1,10 +1,11 @@
-/*****************************************
-// bigco, inc company
-// representation templates
-// 2020-02-01 : mamund
- *****************************************/
+/**
+ * @namespace representors
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * CSV response template
+ */
  
- // CSV response template
 exports.template = 
 {
   format: "text/csv",

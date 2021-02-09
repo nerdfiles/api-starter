@@ -1,10 +1,10 @@
-/*****************************************
-// bigco, inc company
-// representation templates
-// 2020-02-01 : mamund
- *****************************************/
- 
-// plain JSON response template 
+/**
+ * @namespace representors
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * plain JSON response template 
+ */
 exports.template = 
    { 
     format : "application/json", 

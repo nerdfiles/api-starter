@@ -1,10 +1,11 @@
-/*****************************************
-// bigco, inc company
-// representation templates
-// 2020-02-01 : mamund
- *****************************************/
- 
-// prag-json response template 
+/**
+ * @namespace representors
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * prag-json response template 
+ */
+
 exports.template =  
 {
   format : "application/prag+json", 

@@ -1,10 +1,10 @@
-/*****************************************
-// bigco, inc company
-// representation templates
-// 2020-02-01 : mamund
- *****************************************/
- 
-// forms-json response  
+ /**
+ * @namespace representors
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * forms-json response  
+ */
 exports.template =  
 {
   format : "application/forms+json", 
@@ -35,7 +35,7 @@ exports.template =
                     }
                   <%});%>
                 ]	      
-              <%}else{%>"<%=helpers.stateValue(md[p],{},request,md[p])%>"<%}%>
+								<%}else{%>"<%=helpers.stateValue(md[p],{},request,md[p])%>"<%}%>
                   <%w=1;%>
                 <%}%>  
               }
@@ -65,7 +65,7 @@ exports.template =
                       }
                     <%});%>
                   ]	      
-                  <%}else{%>"<%=helpers.stateValue(form[p],{},request,form[p])%>"<%}%>
+                  <%}else{%>"<%=helpers.stateValue(form[p], {}, request, form[p])%>"<%}%>
                   <%w=1;%>
                 <%}%>  
               }
@@ -111,10 +111,11 @@ exports.template =
                     <%q=1;%>
                   <%});%>
                 ]
-                <%y=1;%><%}%>
+                <%y=1;%>
+								<%}%>
                 <%if(y!==0){%>,<%}%>"<%=p%>" : "<%=item[p]%>"
                 <%y=1;%>
-              <%}%>
+							<%}%>
             }
             <%x=1;%>
           <%});%>
