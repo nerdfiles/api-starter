@@ -339,7 +339,7 @@ function handler (req, res, fn, type, representation) {
         rtn = xr;
         oType="error";
       } else {
-        rtn = body
+        rtn = body;
       }
     } else {
       oType = type || "item";
