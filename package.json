@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "./node_modules/.bin/jsdoc darrt/** -d docs",
     "docs/open": "open docs/index.html",
+    "analysis": "./node_modules/.bin/plato -r -d report ./darrt/**",
+    "analysis/open": "./report/index.html",
     "start": "node index",
     "dev": "nodemon index"
   },
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "eslint": "^7.19.0",
-    "jsdoc": "^3.6.6"
+    "jsdoc": "^3.6.6",
+    "plato": "^1.7.0"
   }
 }
