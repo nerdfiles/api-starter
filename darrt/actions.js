@@ -44,7 +44,7 @@ function home (req) {
     if (body) {
       resolve(body);
     } else {
-      reject({ error:"invalid body" });
+      reject({ error: "invalid body" });
     }
   });
 }
@@ -57,16 +57,16 @@ function home (req) {
 function create (req) {
   return new Promise(function (resolve, reject) {
     if (req.body) {
-		var body = req.body;
-			resolve(component({
-				name: object,
-				action: 'add',
-				item: body,
-				props: data.props,
-				reqd: data.reqd,
-				enums: data.enums,
-				defs: data.defs
-			}));
+    var body = req.body;
+      resolve(component({
+        name: object,
+        action: 'add',
+        item: body,
+        props: data.props,
+        reqd: data.reqd,
+        enums: data.enums,
+        defs: data.defs
+      }));
     } else {
       reject({ error: "invalid body" });
     }
