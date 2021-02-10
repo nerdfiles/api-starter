@@ -195,14 +195,13 @@ function file (req, res, parts, respond) {
   }
 }
 
-// dispatch for parsing incoming HTTP bodies
-// ALWAYS returns JSON NVP collection
-//
 /**
- * parseBody.
- *
+ * @function parseBody
  * @param {} body
  * @param {} ctype
+ * @description
+ * dispatch for parsing incoming HTTP bodies
+ * ALWAYS returns JSON NVP collection
  */
 function parseBody (body, ctype) {
   var msg;
@@ -262,7 +261,7 @@ function cjBody (body) {
  */
 function getQArgs (req) {
   var q, qlist;
-  
+
   qlist = null;
   q = req.url.split('?');
   if (q[1] !== undefined) {
@@ -272,7 +271,7 @@ function getQArgs (req) {
 }
 
 /**
- * @function exception.
+ * @function exception
  * @param {string} name
  * @param {string} message
  * @param {number} code

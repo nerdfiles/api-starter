@@ -181,6 +181,7 @@ function updateEntry (elm, id, entry, props, reqd, enums) {
 		action: 'item',
 		id: id
 	}); 
+
   if (check === null || (check.type && check.type === "error")) {
     rtn = utils.exception("File Not Found", "No record on file", 404);
   } else {
@@ -207,7 +208,7 @@ function updateEntry (elm, id, entry, props, reqd, enums) {
 				}
       }
     }
-    
+
     if (error !== "") {
       rtn = utils.exception(error);
     } else {
@@ -219,7 +220,7 @@ function updateEntry (elm, id, entry, props, reqd, enums) {
 			});
     }
   }
-  
+
   return rtn;
 }
 
@@ -237,10 +238,10 @@ function removeEntry (elm, id) {
 		action: 'item',
 		id: id
 	});
+
   if (check === null) {
     rtn = utils.exception("File Not Found", "No record on file", 404);
-  }
-  else {
+  } else {
     storage({
 			object: elm,
 			action: 'remove',
@@ -251,9 +252,9 @@ function removeEntry (elm, id) {
 			action: 'list'
 		});
   }
-  
+
   return rtn;
-  
+
 }
 
 // EOF
