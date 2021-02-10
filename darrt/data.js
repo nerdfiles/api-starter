@@ -1,12 +1,20 @@
-// ****************************************
-// DARRT framework
-// data elements 
-// properties, requireds, and enums
-// 2020-02-01 : mamund
-// ****************************************
+/**
+ * @namespace data
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * DARRT Framework
+ * data elements 
+ * properties, requireds, and enums
+ */
 
-// this service's message properties
-// you MUST include id, dateCreated, and dateUpdated
+/**
+ * @memberof data
+ * @property props {array} - Properties of resources.
+ * @description
+ * this service's message properties
+ * you MUST include id, dateCreated, and dateUpdated
+ */
 exports.props = [
   'id',
   'givenName',
@@ -18,15 +26,33 @@ exports.props = [
   'dateUpdated'
 ];
 
-// required properties
+/**
+ * @memberof data
+ * @property reqd {array} - Required fields.
+ * @description
+ * required properties
+ */
 exports.reqd = ['id','email','status'];
 
-// enumerated properties
+/**
+ * @memberof data
+ * @property enums {array} - Enums.
+ * @description
+ * enumerated properties
+ * @enum {string}
+ */
 exports.enums = [
-  {status:['pending','active','suspended','closed']}
+  { status: ['pending','active','suspended','closed'] }
 ];
 
-// default values for properties
+/**
+ * @memberof data
+ * @property defs {array} - Defaults.
+ * @description
+ * default values for properties
+ */
 exports.defs = [
-  {name:"status",value:"pending"}
-]
+  { name: "status", value: "pending" }
+];
+
+// EOF

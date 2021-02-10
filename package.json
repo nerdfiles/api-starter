@@ -5,8 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "./node_modules/.bin/jsdoc darrt/** -d docs -c ./.jsdoc.json -R ./README.md",
+    "docs/open": "open docs/index.html",
+    "analysis": "./node_modules/.bin/plato -r -d report ./darrt/**",
+    "analysis/open": "open ./report/index.html",
     "start": "node index",
-    "dev": "nodemon index"
+    "dev": "nodemon index",
+    "publish": "surge .",
+    "help": "npm run $(npm run | percol)"
   },
   "repository": {
     "type": "git",
@@ -29,5 +35,10 @@
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
     "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "jsdoc": "^3.6.6",
+    "plato": "^1.7.0"
   }
 }

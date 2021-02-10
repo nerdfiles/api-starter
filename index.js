@@ -13,10 +13,10 @@ var port = process.env.PORT || 8181;
 
 // support calls from JS in browser
 app.use(cors());
-app.options('*',cors()); 
+app.options('*', cors()); 
 
 // point to exposed resources for this API
-app.use('/',resources); 
+app.use('/', resources); 
 
 // start listening for requests
-app.listen(port, () => console.log(`listening on port ${port}!`));
+app.listen(port, () => console.log(`listening on port http://localhost:${port}!`));

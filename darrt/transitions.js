@@ -1,10 +1,20 @@
-/*****************************************
-// DARRT Framework
-// transitions
-// 2020-02-01 : mamund
- *****************************************/
- 
- // page- and item-level forms
+/**
+ * @namespace transitions
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * DARRT Framework
+ * transitions
+ */
+
+/**
+ * @memberof transitions
+ * @property {object} forms          - All forms.
+ * @property {array} forms.pageForms - Page forms.
+ * @property {array} forms.itemForms - Item forms.
+ * @description
+ * page- and item-level forms
+ */
  exports.forms = {
    pageForms: [
      {
@@ -47,7 +57,7 @@
        method:"GET",
        properties:[
          {name:"status",value:""},
-	 {name:"email",value:""},
+         {name:"email",value:""},
          {name:"familyName",value:""}
        ]
      },
@@ -119,3 +129,5 @@
      }
    ]
  }
+
+// EOF

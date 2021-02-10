@@ -1,10 +1,10 @@
-/*****************************************
-// bigco, inc company
-// representation templates
-// 2020-02-01 : mamund
- *****************************************/
- 
-// plain JSON response template 
+/**
+ * @namespace representors
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * plain JSON response template 
+ */
 exports.template = 
    { 
     format : "application/json", 
@@ -19,7 +19,7 @@ exports.template =
               {
                 <%var y=0;%>
                 <%for(var p in item){%>
-                  <%if(y!==0){%>,<%}%>"<%=p%>" : "<%=helpers.stateValue(item[p],item,request,item[p])%>"
+                  <%if(y!==0){%>,<%}%>"<%=p%>" : "<%=helpers.stateValue(item[p], item, request, item[p])%>"
                   <%y=1;%>
                 <%}%>
               }
@@ -30,3 +30,4 @@ exports.template =
     `
   }
 
+// EOF

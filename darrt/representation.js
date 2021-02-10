@@ -1,8 +1,11 @@
-/*****************************************
-// bigco, inc
-// company response representations
-// 2020-02-01 : mamund
- *****************************************/
+/**
+ * @namespace representation
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * bigco, inc
+ * company response representations
+ */
 
 // load representors
 var appJson = require('./representors/app-json');
@@ -11,11 +14,25 @@ var linksJson = require('./representors/links-json');
 var pragJson = require('./representors/prag-json');
 var textCsv = require('./representors/text-csv');
 
-// support form encoding
+/**
+ * @memberof representation
+ * @property urlencoded {boolean} - URL encoding setting.
+ * @description
+ * support form encoding
+ */
 exports.urlencoded = true;
 
-// return supported response bodies
-exports.getTemplates = function() {
+exports.getTemplates = getTemplates;
+exports.getResponseTypes = getResponseTypes;
+
+/**
+ * @function getTemplates
+ * @memberof representation
+ * @description
+ * return supported response bodies
+ * @return {array}
+ */
+function getTemplates () {
   var list = [];
   
   list.push(appJson.template);
@@ -27,23 +44,22 @@ exports.getTemplates = function() {
   return list;  
 }
 
-// return supported response identifiers
-exports.getResponseTypes = function() {
+/**
+ * @function getResponseTypes
+ * @memberof representation
+ * @description
+ * return supported response identifiers
+ * @return {array}
+ */
+function getResponseTypes () {
   var rtn  = [];
   var viewList = this.getTemplates();
 
-  viewList.forEach(function(item) {
+  viewList.forEach(function (item) {
     rtn.push(item.format);
   });
   
   return rtn;
 }
 
-// init to hold forms/links
-exports.forms = {
-  pageForms: [],
-  itemForms: []
-}
-
-
-
+// EOF

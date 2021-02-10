@@ -1,10 +1,10 @@
-/*****************************************
-// bigco, inc company
-// representation templates
-// 2020-02-01 : mamund
- *****************************************/
- 
-// links-json response template
+/**
+ * @namespace representors
+ * @author Mike Amundsen (@mamund)
+ * @created 2020-02-01
+ * @description
+ * links-json response template
+ */
 exports.template =  
 {
   format : "application/links+json", 
@@ -97,3 +97,4 @@ exports.template =
   `
 }
 
+// EOF
