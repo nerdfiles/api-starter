@@ -57,7 +57,7 @@ function home (req) {
 function create (req) {
   return new Promise(function (resolve, reject) {
     if (req.body) {
-    var body = req.body;
+      var body = req.body;
       resolve(component({
         name: object,
         action: 'add',
@@ -119,8 +119,7 @@ function read (req) {
         action: 'item',
         id: id
       }));
-    }
-    else {
+    } else {
       reject({ error:"missing id" });
     }
   });
@@ -193,9 +192,7 @@ function remove (req) {
         id: id
       }));
     } else {
-      reject({
-        error:"invalid id"
-      });
+      reject({ error:"invalid id" });
     }
   });
 }
