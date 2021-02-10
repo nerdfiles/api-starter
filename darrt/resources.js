@@ -44,181 +44,41 @@ function timeLog (req, res, next) {
 // ***********************************************************
 // public resources for the api service
 // ***********************************************************
-router.get('/', getHome);
-router.post('/', postResource);
-router.get('/list/', listResources);
-router.get('/filter/', filterResources);
-router.get('/:id', getResource);
-router.put('/:id', putResource);
-router.delete('/:id', deleteResource);
-router.patch('/status/:id', patchStatus);
+router.get('/', routerCallback(actions.home, 'home', 'home'));
+router.post('/', routercallback(actions.create, 'api', 'list'));
+router.get('/list/', routercallback(actions.list, 'api', 'list'));
+router.get('/filter/', routercallback(actions.filter, 'api', 'list'));
+router.get('/:id', routercallback(actions.read, 'api', 'item'));
+router.put('/:id', routercallback(actions.update, 'api', 'item'));
+router.delete('/:id', routercallback(actions.remove, 'api', 'list'));
+router.patch('/status/:id', routercallback(actions.status, 'api', 'item'));
 
 /**
+ * @function routerCallback
  * @memberof resources
- * @function getHome
- * @param {object} req - Express Request object.
- * @param {object} res - Express Response object.
+ * @param {} act
+ * @param {} type
+ * @param {} filter
  */
-function getHome (req, res) {
-  var args = {};
-  args.request = req;
-  args.response = res;
-  args.action = actions.home;
-  args.type = "home";
-  args.config = {
-    metadata: metadata,
-    templates: templates,
-    forms: forms,
-    filter: "home"
-  };
-  respond(args);
-}
-
-/**
- * @memberof resources
- * @function postResource
- * @param {object} req - Express Request object.
- * @param {object} res - Express Response object.
- */
-function postResource (req, res) {
-  var args = {};
-  args.request = req;
-  args.response = res;
-  args.action = actions.create;
-  args.type = "api";
-  args.config = {
-    metadata: metadata,
-    templates: templates,
-    forms: forms,
-    filter: "list"
-  };
-  respond(args);
-}
-
-/**
- * @function listResources
- * @memberof resources
- * @param {object} req - Express Request object.
- * @param {object} res - Express Response object.
- */
-function listResources (req, res) {
-  var args = {};
-  args.request = req;
-  args.response = res;
-  args.action = actions.list;
-  args.type = "api";
-  args.config = {
-    metadata: metadata,
-    templates: templates,
-    forms: forms,
-    filter: "list"
-  };
-  respond(args);
-}
-
-/**
- * @function filterResources
- * @memberof resources
- * @param {object} req - Express Request object.
- * @param {object} res - Express Response object.
- */
-function filterResources (req, res) {
-  var args = {};
-  args.request = req;
-  args.response = res;
-  args.action = actions.filter;
-  args.type = "api";
-  args.config = {
-    metadata: metadata,
-    templates: templates,
-    forms: forms,
-    filter: "list"
-  };
-  respond(args);
-}
-
-/**
- * @function getResource
- * @memberof resources
- * @param {object} req - Express Request object.
- * @param {object} res - Express Response object.
- */
-function getResource (req,res) {
-  var args = {};
-  args.request = req;
-  args.response = res;
-  args.action = actions.read;
-  args.type = "api";
-  args.config = {
-    metadata: metadata,
-    templates: templates,
-    forms: forms,
-    filter: "item"
-  };
-  respond(args);
-}
-
-/**
- * @function putResource
- * @memberof resources
- * @param {object} req - Express Request object.
- * @param {object} res - Express Response object.
- */
-function putResource (req, res) {
-  var args = {};
-  args.request = req;
-  args.response = res;
-  args.action = actions.update;
-  args.type = "api";
-  args.config = {
-    metadata: metadata,
-    templates: templates,
-    forms: forms,
-    filter: "item"
-  };
-  respond(args);
-}
-
-/**
- * @function deleteResource
- * @memberof resources
- * @param {object} req - Express Request object.
- * @param {object} res - Express Response object.
- */
-function deleteResource (req, res) {
-  var args = {};
-  args.request = req;
-  args.response = res;
-  args.action = actions.remove;
-  args.type = "api";
-  args.config = {
-    metadata: metadata,
-    templates: templates,
-    forms: forms,
-    filter: "list"
-  };
-  respond(args);
-}
-
-/**
- * @function patchStatus
- * @memberof resources
- * @param {object} req - Express Request object.
- * @param {object} res - Express Response object.
- */
-function patchStatus (req, res) {
-  var args = {};
-  args.request = req;
-  args.response = res;
-  args.action = actions.status;
-  args.type = "api";
-  args.config = {
-    metadata: metadata,
-    templates: templates,
-    forms: forms,
-    filter: "item"
-  };
-  respond(args);
+function routerCallback (act, type, filter) {
+	/**
+	 * @param {object} req - Express Request object.
+	 * @param {object} res - Express Response object.
+	 */
+	return function (req, res) {
+		var args = {};
+		args.request = req;
+		args.response = res;
+		args.action = act;
+		args.type = type;
+		args.config = {
+			metadata: metadata,
+			templates: templates,
+			forms: forms,
+			filter: filter
+		};
+		respond(args);
+	}
 }
 
 /***********************************************************************/
