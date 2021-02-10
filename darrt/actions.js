@@ -58,7 +58,7 @@ function create (req) {
   return new Promise(function (resolve, reject) {
     if (req.body) {
       var body = req.body;
-      resolve(component({
+      var action = {
         name: object,
         action: 'add',
         item: body,
@@ -66,7 +66,8 @@ function create (req) {
         reqd: data.reqd,
         enums: data.enums,
         defs: data.defs
-      }));
+      };
+      resolve(component(action));
     } else {
       reject({ error: "invalid body" });
     }
@@ -79,10 +80,11 @@ function create (req) {
  */
 function list () {
   return new Promise(function (resolve) {
-    resolve(component({
+    var action = {
       name: object,
       action: 'list'
-    }));
+    };
+    resolve(component(action));
   });
 }
 
@@ -94,11 +96,12 @@ function list () {
 function filter (req) {
   return new Promise(function (resolve, reject) {
     if (req.query && req.query.length !== 0) {
-      resolve(component({
+      var action = {
         name: object,
         action: 'filter',
         filter: req.query
-      }));
+      };
+      resolve(component(action));
     } else {
       reject({ error:"invalid query string" });
     }
@@ -114,11 +117,12 @@ function read (req) {
   return new Promise(function (resolve, reject) {
     if (req.params.id && req.params.id !== null) {
       var id = req.params.id;
-      resolve(component({
+      var action = {
         name: object,
         action: 'item',
         id: id
-      }));
+      };
+      resolve(component(action));
     } else {
       reject({ error:"missing id" });
     }
@@ -136,7 +140,7 @@ function update (req) {
     id = req.params.id || null;
     body = req.body || null;
     if (id !== null && body !== null) {
-      resolve(component({
+      var action = {
         name: object,
         action: 'update',
         id: id,
@@ -144,7 +148,8 @@ function update (req) {
         props: data.props,
         reqd: data.reqd,
         enums: data.enums
-      }));
+      };
+      resolve(component(action));
     } else {
       reject({ error:"missing id and/or body" });
     }
@@ -162,7 +167,7 @@ function status (req) {
     id = req.params.id || null;
     body = req.body || null;
     if (id !== null && body !== null) {
-      resolve(component({
+      var action = {
         name: object,
         action: 'update',
         id: id,
@@ -170,7 +175,8 @@ function status (req) {
         props: data.props,
         reqd: data.data,
         enums: data.enums
-      }));
+      };
+      resolve(component(action));
     } else {
       reject({ error: "missing id and/or body" });
     }
@@ -186,11 +192,12 @@ function remove (req) {
   return new Promise(function (resolve, reject) {
     if (req.params.id && req.params.id !== null) {
       var id = req.params.id;
-      resolve(component({
+      var action = {
         name: object,
         action: 'delete',
         id: id
-      }));
+      };
+      resolve(component(action));
     } else {
       reject({ error:"invalid id" });
     }
