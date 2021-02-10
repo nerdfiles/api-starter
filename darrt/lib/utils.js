@@ -54,7 +54,7 @@ function actionMethod (action, protocol) {
   var p = protocol || "http";
   var rtn = "GET";
 
-  switch(p) {
+  switch (p) {
     case "http":
       rtn = httpActions[action];
       break;
@@ -234,12 +234,12 @@ function cjBody (body) {
   body = JSON.parse(body);
   
   // if they include template...
-  if(body.template && body.template.data) {
+  if (body.template && body.template.data) {
     data = body.template.data;
   }
 
   // if they only pass data array...
-  if(data === null && body.data) {
+  if (data === null && body.data) {
     data = body.data;
   }
 
@@ -249,7 +249,7 @@ function cjBody (body) {
       rtn[data[i].name] = data[i].value;
     }
   }
-  
+
   return rtn;
 }
 

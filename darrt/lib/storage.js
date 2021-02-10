@@ -85,10 +85,10 @@ function getList (object, filter, fields) {
     list = fs.readdirSync(folder + object + '/');
     for (i = 0, x = list.length; i < x; i++) {
       item = JSON.parse(fs.readFileSync(folder + object + '/' + list[i]));
-      if (filter && filter!==null) {
+      if (filter && filter !== null) {
         t = null;
         for (var name in filter) {
-          if(filter[name].toString().length!==0) {
+          if (filter[name].toString().length!==0) {
             try {
               if (item[name].toString().toLowerCase().indexOf(filter[name].toString().toLowerCase()) !== -1) { 
                 t = list[i];
@@ -181,12 +181,12 @@ function applyFields (item, fields) {
 function createObject (object) {
   var rtn, args = {};
   try {
-    if(folder && folder !==null) {
-      if(!fs.existsSync(folder)) {
+    if (folder && folder !==null) {
+      if (!fs.existsSync(folder)) {
         fs.mkdirSync(folder);
       }
     }
-    if(object && object !== null) {
+    if (object && object !== null) {
       fs.mkdirSync(folder + object);
     } else {
       args = {};
@@ -195,7 +195,7 @@ function createObject (object) {
       args.code = 400;
       rtn = exception(args);
     }
-  } catch(ex) {
+  } catch (ex) {
     args = {};
     args.title = "SimpleStorage: ["+object+"]";
     args.detail = "error creating folder/object";
@@ -291,7 +291,7 @@ function updateItem (object, item, id) {
 /**
  * @function removeItem
  * @inner
- * @param {object} object - Item to be removed.
+ * @param {string} object - Name/type of object to be removed.
  * @param {string} id - Id of item.
  * @description
  * remove the item
@@ -334,12 +334,12 @@ function makeId () {
 function exception (args) {
   var rtn = {};
 
-  rtn.type = (args.type||"error");
-  rtn.title = (args.title||"Error");
-  rtn.detail = (args.detail||args.title);
-  rtn.status = (args.code||"400");
-  if(args.url) {rtn.instance = args.url}
-  if(args.debug) {rtn.debug = args.debug}
+  rtn.type = (args.type || "error");
+  rtn.title = (args.title || "Error");
+  rtn.detail = (args.detail || args.title);
+  rtn.status = (args.code || "400");
+  if (args.url) { rtn.instance = args.url; }
+  if (args.debug) { rtn.debug = args.debug; }
 
   return rtn;
 }
