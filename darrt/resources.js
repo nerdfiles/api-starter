@@ -56,9 +56,9 @@ router.patch('/status/:id', routerCallback(actions.status, 'api', 'item'));
 /**
  * @function routerCallback
  * @memberof resources
- * @param {} act
- * @param {} type
- * @param {} filter
+ * @param {function} act - Action to perform.
+ * @param {string} type - Request context.
+ * @param {string} filter - Name of filter.
  */
 function routerCallback (act, type, filter) {
 	/**
