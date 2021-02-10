@@ -45,13 +45,13 @@ function timeLog (req, res, next) {
 // public resources for the api service
 // ***********************************************************
 router.get('/', routerCallback(actions.home, 'home', 'home'));
-router.post('/', routercallback(actions.create, 'api', 'list'));
-router.get('/list/', routercallback(actions.list, 'api', 'list'));
-router.get('/filter/', routercallback(actions.filter, 'api', 'list'));
-router.get('/:id', routercallback(actions.read, 'api', 'item'));
-router.put('/:id', routercallback(actions.update, 'api', 'item'));
-router.delete('/:id', routercallback(actions.remove, 'api', 'list'));
-router.patch('/status/:id', routercallback(actions.status, 'api', 'item'));
+router.post('/', routerCallback(actions.create, 'api', 'list'));
+router.get('/list/', routerCallback(actions.list, 'api', 'list'));
+router.get('/filter/', routerCallback(actions.filter, 'api', 'list'));
+router.get('/:id', routerCallback(actions.read, 'api', 'item'));
+router.put('/:id', routerCallback(actions.update, 'api', 'item'));
+router.delete('/:id', routerCallback(actions.remove, 'api', 'list'));
+router.patch('/status/:id', routerCallback(actions.status, 'api', 'item'));
 
 /**
  * @function routerCallback
