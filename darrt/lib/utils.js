@@ -49,6 +49,7 @@ exports.handler = handler;
  * @param {} protocol
  * @description
  * map WeSTL actions to HTTP
+ * @return {string}
  */
 function actionMethod (action, protocol) {
   var p = protocol || "http";
@@ -70,6 +71,7 @@ function actionMethod (action, protocol) {
  * @param {array} props
  * @description
  * only write 'known' properties for an item
+ * @return {object}
  */
 function setProps (item, props) {
   var rtn, i, x, p;
@@ -87,6 +89,7 @@ function setProps (item, props) {
  * @param {array} elm
  * @description
  * produce clean array of items
+ * @return {array}
  */
 function cleanList (elm) {
   var coll;
@@ -126,6 +129,7 @@ function makeId () {
  * @param {string} description
  * @description
  * craft an external error response (anything, really)
+ * @return {object}
  */
 function errorResponse (req, res, msg, code, description) {
   var doc;
@@ -158,6 +162,7 @@ function errorResponse (req, res, msg, code, description) {
  * - only files to deal with are JS, CSS & HTML
  * - all of them are in a single sub-folder (FILES)
  * - NOTE: this is a *synch* routine w/o streaming
+ * @return {undefined}
  */
 function file (req, res, parts, respond) {
   var body, type;
@@ -225,6 +230,7 @@ function parseBody (body, ctype) {
  * @param {} body
  * @description
  * process an incoming cj template body
+ * @return {object}
  */
 function cjBody (body) {
   var rtn, data, i, x;
@@ -281,6 +287,7 @@ function getQArgs (req) {
  * craft an internal exception object
  * based on RFC7807 (problem details
  * local exeption routine
+ * @return {string}
  */
 function exception (name, message, code, type, url) {
   var rtn = {};
@@ -296,14 +303,15 @@ function exception (name, message, code, type, url) {
 
 /**
  * @function handler
- * @param {} req
- * @param {} res
- * @param {} fn
- * @param {} type
- * @param {} representation
+ * @param {object} req
+ * @param {object} res
+ * @param {promise} fn
+ * @param {string} type
+ * @param {object} representation
  * ejs-dependent response emitter
  * handle formatting response
  * depends on ejs templating
+ * @return {object}
  */
 function handler (req, res, fn, type, representation) {
   var rtn = {};
@@ -324,7 +332,7 @@ function handler (req, res, fn, type, representation) {
   iForms = tagFilter(iForms, filter);
   metadata = tagFilter(metadata, filter);   
 
-  fn(req,res).then(function (body) {
+  fn(req, res).then(function (body) {
     if (jsUtil.isArray(body) === true) {
       oType = type || "collection";
       if (body.length !== 0 && body[0].type && body[0].type === "error") {
@@ -402,6 +410,7 @@ function handler (req, res, fn, type, representation) {
  * @param {array} templates List of templates.
  * @description
  * sort out accept header
+ * @return {string}
  */
 function resolveAccepts (req, templates) {
   var rtn = "";
@@ -428,8 +437,9 @@ function resolveAccepts (req, templates) {
  * @param {} filter
  * @description
  * tag filter
+ * @return {array}
  */
-function tagFilter(collection, filter) {
+function tagFilter (collection, filter) {
   var coll = collection || [];
   var tag = filter || "";
   var rtn = [];
