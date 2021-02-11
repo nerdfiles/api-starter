@@ -122,10 +122,9 @@ function fDate (dte) {
  */
 function lz (n){
   var rtn = "";
-  if(n <= 9){
+  if (n <= 9){
     rtn = "0" + n;
-  }
-  else {
+  } else {
     rtn = n
   }
   return rtn;

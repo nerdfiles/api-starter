@@ -17,14 +17,13 @@ var folder = process.cwd() + '/data/';
 
 module.exports = main;
 
-/*
- * args is a hash table of possible arguments
- * {object:"",action:"",filter:"",id:"",item:objItem}
- */
 /**
  * @function main
  * @static
  * @param {object} args - Configuration object for storage medium.
+ * @description
+ * args is a hash table of possible arguments
+ * {object:"",action:"",filter:"",id:"",item:objItem}
  */
 function main (args) {
   var rtn;
@@ -88,7 +87,7 @@ function getList (object, filter, fields) {
       if (filter && filter !== null) {
         t = null;
         for (var name in filter) {
-          if (filter[name].toString().length!==0) {
+          if (filter[name].toString().length !== 0) {
             try {
               if (item[name].toString().toLowerCase().indexOf(filter[name].toString().toLowerCase()) !== -1) { 
                 t = list[i];
@@ -181,7 +180,7 @@ function applyFields (item, fields) {
 function createObject (object) {
   var rtn, args = {};
   try {
-    if (folder && folder !==null) {
+    if (folder && folder !== null) {
       if (!fs.existsSync(folder)) {
         fs.mkdirSync(folder);
       }
