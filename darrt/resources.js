@@ -78,7 +78,7 @@ function routerCallback (act, type, filter) {
 			filter: filter
 		};
 		respond(args);
-	}
+	};
 }
 
 /***********************************************************************/

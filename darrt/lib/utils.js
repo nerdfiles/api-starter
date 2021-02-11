@@ -75,7 +75,7 @@ function setProps (item, props) {
   var rtn, i, x, p;
     
   rtn = {};  
-  for(i = 0,x = props.length; i < x; i++) {
+  for (i = 0, x = props.length; i < x; i++) {
     p = props[i];
     rtn[p] = (item[p] || "");
   }
@@ -175,10 +175,10 @@ function file (req, res, parts, respond) {
     if (parts[1].indexOf(htmlType) !== -1) {
       type = 'text/html';
     }
-    if(req.headers["accept"].indexOf(halFormType) !== -1) {
+    if (req.headers["accept"].indexOf(halFormType) !== -1) {
       type = halFormType;
     }
-    if(req.headers["accept"].indexOf(sirenSopType) !== -1) {
+    if (req.headers["accept"].indexOf(sirenSopType) !== -1) {
       type = sirenSopType;
     }
     
@@ -385,7 +385,7 @@ function handler (req, res, fn, type, representation) {
   }).catch(function (err) {
     xr.push(exception(
       "Server error",
-      err.message||"Internal error",
+      err.message || "Internal error",
       '500',
       "error",
       'http://' + req.headers.host + req.url
