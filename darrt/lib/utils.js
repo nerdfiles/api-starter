@@ -380,7 +380,7 @@ function handler (req, res, fn, type, representation) {
         request: req
       };
       if (template.view !== "") {
-        reply= ejs.render(template.view, rtn);
+        reply = ejs.render(template.view, rtn);
       } else {
         reply = JSON.stringify(rtn, null, 2);
       }
