@@ -28,7 +28,7 @@ function stateValue (val, state, request, def) {
   var v = val.toString() || "";
   var st = state || {};
   var d = def || v;
-  var x=0;
+  var x = 0;
   var req = request || {};
   var hst = "";
   var pxy = "";
