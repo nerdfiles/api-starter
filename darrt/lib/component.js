@@ -12,6 +12,12 @@
  * - enumerated values for a field
  * - DOES NOT support field type-checking (number, date, email, etc.)
  * - DOES NOT support min/max ranges for a field value
+ *
+ * In the DDD framework or philosophy each component would map to an 
+ * application component (which we could also conceptualize as an Angular 
+ * component in fact for each HTTP VERB or Link Relation).
+ *
+ * @see Mavo which has a similar storage system setup.
  */
 
 var storage = require('./storage');
@@ -100,7 +106,7 @@ function main (args) {
 /**
  * @function addEntry
  * @inner
- * @param {string} elm
+ * @param {string} elm - Element to 
  * @param {string} entry
  * @param {array} props
  * @param {array} reqd
